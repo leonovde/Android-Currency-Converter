@@ -49,7 +49,7 @@ public class QueryUtils {
         try{
             baseJsonResponse = new JSONObject(currencyJson);
         }catch (JSONException e){
-            Log.e(LOG_TAG, "Error occurred parsing the JSON", e);
+            Log.e(LOG_TAG, "Error occurred parsing the JSON" + e);
         }
         return baseJsonResponse;
     }
@@ -59,7 +59,7 @@ public class QueryUtils {
         try{
             url = new URL(stringUrl);
         }catch (MalformedURLException e){
-            Log.e(LOG_TAG, "Problem with creating URL", e);
+            Log.e(LOG_TAG, "Problem with creating URL" + e);
         }
         return url;
     }
@@ -87,7 +87,7 @@ public class QueryUtils {
                 Log.e(LOG_TAG, "Http request error code: " + urlConnection.getResponseCode());
             }
         }catch (IOException e){
-            Log.e(LOG_TAG, "Problem retrieving currency JSON result", e);
+            Log.e(LOG_TAG, "Problem retrieving currency JSON result" + e);
         }finally {
             if (urlConnection != null){
                 urlConnection.disconnect();

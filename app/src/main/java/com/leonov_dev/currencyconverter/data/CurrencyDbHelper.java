@@ -4,13 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * Created by dmitrii_leonov on 11.08.17.
- */
-
 public class CurrencyDbHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "shelter.db";
+    public static final String DATABASE_NAME = "currencies.db";
     public static final int DATABASE_VERSION = 1;
 
     public CurrencyDbHelper(Context context) {

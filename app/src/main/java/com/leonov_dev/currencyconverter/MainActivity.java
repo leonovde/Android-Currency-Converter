@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
-            Log.e("Error Creating fragment", " " + e);
+            Log.e(LOG_TAG, "Error Creating fragment " + e);
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             transaction.addToBackStack(null);
             transaction.commit();
         }catch (Exception e){
-            Log.e("MainActivity", " " + e);
+            Log.e(LOG_TAG, "Transaction error" + e);
         }
 
         setTitle(item.getTitle());

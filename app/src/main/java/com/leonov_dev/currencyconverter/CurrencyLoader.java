@@ -5,10 +5,6 @@ import android.content.AsyncTaskLoader;
 
 import org.json.JSONObject;
 
-/**
- * Created by dmitrii_leonov on 13.03.17.
- */
-
 public class CurrencyLoader extends AsyncTaskLoader<JSONObject> {
 
     private String mUrl;

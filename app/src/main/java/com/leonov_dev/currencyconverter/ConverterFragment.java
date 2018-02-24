@@ -58,6 +58,9 @@ public class ConverterFragment extends Fragment {
 
     private boolean isAlreadyOpened = false;
 
+    public final String LOG_TAG = this.getClass().getSimpleName();
+
+
     public ConverterFragment() {
         // Required empty public constructor
     }
@@ -109,7 +112,7 @@ public class ConverterFragment extends Fragment {
                         mButtonEtMYR.setVisibility(View.VISIBLE);
 
                     }catch (Exception e){
-
+                        Log.e(LOG_TAG, "Error in other currencies ET" + e);
                     }
                 }
             }
@@ -145,7 +148,7 @@ public class ConverterFragment extends Fragment {
                         mButtonEtMYR.setVisibility(View.VISIBLE);
 
                     }catch (Exception e){
-
+                        Log.e(LOG_TAG, "Error in MYR ET " + e);
                     }
                 }
             }
@@ -170,7 +173,7 @@ public class ConverterFragment extends Fragment {
 
 
                 }catch (Exception e){
-                    Log.e("ConverterFragment", "problem in changing currency " + e);
+                    Log.e(LOG_TAG, "problem in changing currency " + e);
                 }
             }
 
@@ -222,7 +225,7 @@ public class ConverterFragment extends Fragment {
                     }
                 }
             } catch (Exception e) {
-                Log.e("ConverterFragment", "Exceprion on start occured " + e);
+                Log.e(LOG_TAG, "Exceprion on start occured " + e);
             }
         }
     }
@@ -244,7 +247,7 @@ public class ConverterFragment extends Fragment {
                 currenciesJSON = new JSONObject(jsonString);
             }
         }catch(Exception e){
-            Log.e("loadJsonFromDb", " " + e);
+            Log.e(LOG_TAG, "Error loading from Db " + e);
         }finally {
             cursor.close();
         }
@@ -275,7 +278,7 @@ public class ConverterFragment extends Fragment {
             quantityOfCurrency = quantity;
             priceOfCurrency = price;
         }catch (Exception e){
-            Log.e("parseJson", " " + e);
+            Log.e(LOG_TAG, "Error parsing JSON " + e);
         }
 
     }

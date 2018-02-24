@@ -22,9 +22,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ExchangerFragment extends Fragment {
 
     private TextView mBuyTextView;
@@ -37,6 +34,7 @@ public class ExchangerFragment extends Fragment {
 
     public LinearLayout refreshLinearLayout;
 
+    public final String LOG_TAG = this.getClass().getSimpleName();
 
     public ExchangerFragment() {
         // Required empty public constructor
@@ -101,7 +99,7 @@ public class ExchangerFragment extends Fragment {
                     mAdapter.addAll(currencies);
                 }
             } catch (Exception e) {
-                Log.e("ExchangerFragment", " " + e);
+                Log.e(LOG_TAG, "Error displaying info " + e);
             } finally {
                 cursor.close();
             }
@@ -117,18 +115,17 @@ public class ExchangerFragment extends Fragment {
         //Create, read the JSONobject and fill the List of currencies;
         try{
             JSONObject currenciesJSON = new JSONObject(jsonString);
-            try {
-                JSONObject rates = currenciesJSON.getJSONObject("rates");
-                if (rates != null){
-                    double priceOnStock;
-                    for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
-                        priceOnStock = getPrice(CurrencyData.curAcronyms[i], rates);
-                        currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, EXCHANGER_ID));
-                    }
+            JSONObject rates = currenciesJSON.getJSONObject("rates");
+            if (rates != null){
+                double priceOnStock;
+                for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
+                    priceOnStock = getPrice(CurrencyData.curAcronyms[i], rates);
+                    currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, EXCHANGER_ID));
                 }
-            }catch (JSONException e){
             }
-        }catch (Exception e){}
+        }catch (Exception e){
+            Log.e(LOG_TAG, "List of currencies error " + e);
+        }
         return currencies;
 
     }
@@ -139,7 +136,7 @@ public class ExchangerFragment extends Fragment {
         try {
             priceOnStock = rates.getDouble(currencyAcronym);
         }catch (JSONException e){
-
+            Log.e(LOG_TAG, "Error getting price" + e);
         }
         return priceOnStock;
     }

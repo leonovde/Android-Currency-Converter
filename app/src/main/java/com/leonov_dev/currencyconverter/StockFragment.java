@@ -162,7 +162,7 @@ public class StockFragment extends Fragment{
                     mAdapter.addAll(currencies);
                 }
             } catch (Exception e) {
-                Log.e("StockFragment", "" + e);
+                Log.e(LOG_TAG, "Error displaying data" + e);
             } finally {
                 cursor.close();
             }
@@ -171,25 +171,20 @@ public class StockFragment extends Fragment{
 
     private List<Currency> parseJSON(String jsonString) throws JSONException {
         List<Currency> currencies = new ArrayList<Currency>();
-
         try{
             JSONObject currenciesJSON = new JSONObject(jsonString);
-
             //Parse JSON file and put Data in ArrayList
-            try {
-                JSONObject rates = currenciesJSON.getJSONObject("rates");
-                if (rates != null){
-                    double priceOnStock;
-                    for (int i = 0; i < CurrencyData.curAcronyms.length; i++){
-                        priceOnStock = getPrice(CurrencyData.curAcronyms[i], rates);
-                        currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, STOCK_ID));
-                    }
+            JSONObject rates = currenciesJSON.getJSONObject("rates");
+            if (rates != null){
+                double priceOnStock;
+                for (int i = 0; i < CurrencyData.curAcronyms.length; i++){
+                    priceOnStock = getPrice(CurrencyData.curAcronyms[i], rates);
+                    currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, STOCK_ID));
                 }
-            }catch (JSONException e){
-                Log.e("StockFragment", " " + e);
             }
-
-        }catch(Exception e){}
+        }catch(Exception e){
+            Log.e(LOG_TAG, "Error parsing JSON" + e);
+        }
 
         return currencies;
     }
@@ -199,7 +194,7 @@ public class StockFragment extends Fragment{
         try {
             priceOnStock = rates.getDouble(currencyAcronym);
         }catch (JSONException e){
-
+            Log.e(LOG_TAG, "Error getting price " + e);
         }
         return priceOnStock;
     }
@@ -246,7 +241,7 @@ public class StockFragment extends Fragment{
             //Get an ID of last records
             bufId = cursor.getLong(idColumnIndex);
         }catch (Exception e){
-            Log.e("MainActivity", " " + e);
+            Log.e(LOG_TAG, "Error getting last record" + e);
         }finally {
             cursor.close();
         }
@@ -259,7 +254,7 @@ public class StockFragment extends Fragment{
             String jsonString = currenciesJSON.toString();
             writeInDatabase(jsonString);
         }catch (Exception e){
-            Log.e("MainActivity", "Error sending data to DB " + e);
+            Log.e(LOG_TAG, "Error sending data to DB " + e);
         }
     }
 
@@ -287,7 +282,7 @@ public class StockFragment extends Fragment{
             mCountCursor = db.query(CurrencyContract.CurrencyEntry.TABLE_NAME, null, null, null, null, null, null);
             recordsCount = mCountCursor.getCount();
         }catch (Exception e){
-            Log.e("MainActivity", "" + e);
+            Log.e(LOG_TAG, "Error getting number of records" + e);
         }finally {
             mCountCursor.close();
         }
@@ -307,7 +302,7 @@ public class StockFragment extends Fragment{
                     }
                 }, time);
             } catch (Exception e) {
-                Log.e("StockFragment", "time Delay Remover Dialog error " + e);
+                Log.e(LOG_TAG, "Time Delay Remover Dialog error " + e);
             }
         }
     }
