@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 
 /**
@@ -288,9 +289,11 @@ public class ConverterFragment extends Fragment {
         }
     }
 
+    //Truncating the number so 4.239 will be 1 = 4.23 not 4.24
     public double formatPrice(double price){
         DecimalFormat formatter = new DecimalFormat("0.00");
-        //Truncating the number so 4.239 will be 1 = 4.23 not 4.24
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
         return Double.parseDouble(formatter.format(Math.floor(price * 100) / 100));
     }
 

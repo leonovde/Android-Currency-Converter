@@ -1,6 +1,7 @@
 package com.leonov_dev.currencyconverter;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 
 public class Currency {
@@ -34,6 +35,10 @@ public class Currency {
     //formats the price to accuracy of 3 decimal points
     public double formatPrice(double price){
         DecimalFormat formatter = new DecimalFormat("0.000");
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        formatter.setDecimalFormatSymbols(symbols);
+
         return Double.parseDouble(formatter.format(price));
     }
 
