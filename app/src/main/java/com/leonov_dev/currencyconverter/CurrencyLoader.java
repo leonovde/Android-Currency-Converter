@@ -1,0 +1,36 @@
+package com.leonov_dev.currencyconverter;
+
+import android.content.Context;
+import android.content.AsyncTaskLoader;
+
+import org.json.JSONObject;
+
+/**
+ * Created by dmitrii_leonov on 13.03.17.
+ */
+
+public class CurrencyLoader extends AsyncTaskLoader<JSONObject> {
+
+    private String mUrl;
+
+
+    public CurrencyLoader(Context context, String url){
+        super(context);
+        mUrl = url;
+    }
+
+    @Override
+    public JSONObject loadInBackground() {
+        if (mUrl == null){
+            return null;
+        }
+        JSONObject currenciesJson = QueryUtils.fetchCurrencyData(mUrl);
+        return currenciesJson;
+    }
+
+    @Override
+    protected void onStartLoading() {
+        forceLoad();
+    }
+
+}
