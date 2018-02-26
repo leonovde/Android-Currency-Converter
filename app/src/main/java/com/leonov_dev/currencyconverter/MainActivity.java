@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.leonov_dev.currencyconverter.preferences.CurrencySettingsFragment;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
 
@@ -73,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentClass = ExchangerFragment.class;
         }else if (id == R.id.about_item){
             fragmentClass = AboutFragment.class;
+        }else if (id == R.id.settings_item){
+            fragmentClass = CurrencySettingsFragment.class;
         }
 
         try {

@@ -18,5 +18,9 @@
             android:icon="@drawable/ic_about"
             android:title="@string/about_item"/>
 
+        <item
+            android:id="@+id/settings_item"
+            android:title="Currency Settings"/>
+
     </group>
 </menu>

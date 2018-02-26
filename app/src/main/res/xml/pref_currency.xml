@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <MultiSelectListPreference
+        android:key="@string/pref_currencies_key"
+        android:entries="@array/list_of_currencies"
+        android:entryValues="@array/list_of_currencies"
+        android:title="@string/pref_currencies_label" />
+</PreferenceScreen>
