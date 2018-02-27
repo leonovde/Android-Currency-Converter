@@ -33,6 +33,7 @@
     <string name="JPY" translatable="false">JPY</string>
     <string name="PHP" translatable="false">PHP</string>
     <string name="INR" translatable="false">INR</string>
+    <!--<string name="KRW" translatable="false">KRW</string>-->
 
     <string name="stock_price">Stock Price</string>
     <string name="you_sell">You Sell</string>
@@ -58,4 +59,34 @@
     <!-- Strings related to Preferences -->
     <string name="pref_currencies_key">currencies_to_show</string>
     <string name="pref_currencies_label">List of Currencies</string>
+
+    <string name="pref_summary_on">Show</string>
+    <string name="pref_summary_off">Do not show</string>
+
+    <string name="pref_usd_key">usd</string>
+    <string name="pref_eur_key">eur</string>
+    <string name="pref_hkd_key">hkd</string>
+    <string name="pref_aud_key">aud</string>
+    <string name="pref_idr_key">idr</string>
+    <string name="pref_sgd_key">sgd</string>
+    <string name="pref_cny_key">cny</string>
+    <string name="pref_gbp_key">gbp</string>
+    <string name="pref_jpy_key">jpy</string>
+    <string name="pref_php_key">php</string>
+    <string name="pref_inr_key">inr</string>
+    <!--<string name="pref_krw_key">krw</string>-->
+
+    <string name="pref_usd_label">Show USD rate</string>
+    <string name="pref_eur_label">Show EUR rate</string>
+    <string name="pref_hkd_label">Show HKD rate</string>
+    <string name="pref_aud_label">Show AUD rate</string>
+    <string name="pref_idr_label">Show IDR rate</string>
+    <string name="pref_sgd_label">Show SGD rate</string>
+    <string name="pref_cny_label">Show CNY rate</string>
+    <string name="pref_gbp_label">Show GBP rate</string>
+    <string name="pref_jpy_label">Show JPY rate</string>
+    <string name="pref_php_label">Show PHP rate</string>
+    <string name="pref_inr_label">Show INR rate</string>
+    <!--<string name="pref_krw_label">Show KRW rate</string>-->
+
 </resources>
