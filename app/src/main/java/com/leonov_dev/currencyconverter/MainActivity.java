@@ -1,5 +1,6 @@
 package com.leonov_dev.currencyconverter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -78,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int elementId = item.getItemId();
-        //TODO make separate class for staring the fragment, repalce in here and onNavigationItemSelected
-        //Or Put fragment inside the activity and start it here
         Class fragmentClass = null;
         Fragment fragment = null;
         if (elementId == R.id.action_settings){
