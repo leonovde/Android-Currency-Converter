@@ -1,9 +1,12 @@
 package com.leonov_dev.currencyconverter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,7 @@ public class CurrencyAdapter extends ArrayAdapter<Currency> {
 
     private final int EXCHANGER_ID = 2;
     private final int STOCK_ID = 1;
+    private SharedPreferences sharedPreferences;
 
 
     public CurrencyAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Currency> currency) {
@@ -36,8 +40,15 @@ public class CurrencyAdapter extends ArrayAdapter<Currency> {
         }
 
         Currency currentCurrency = getItem(position);
-
-        if (currentCurrency.getType() == STOCK_ID){
+//        //TODO is not the best implementation coz it triggers every time user scrolls. Need to restrict while parsing
+//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+//        boolean isToBeDisplayed;
+//        Log.e("SHARED PREFS ", ">>>>>>>>>>>>>" + sharedPreferences.getAll());
+//        Log.e("CHECKING ", ">>>>>>>>>>>>>> If" + sharedPreferences.contains(currentCurrency.getCurrencyName().toLowerCase()));
+//        Log.e("OK this happens", ">>>>>>>>>>>>>>>> " + currentCurrency.getCurrencyName().toLowerCase());
+//        isToBeDisplayed = sharedPreferences.getBoolean(currentCurrency.getCurrencyName().toLowerCase(), true);
+//
+        if (currentCurrency.getType() == STOCK_ID) {
             //has 3 column
             ImageView currencyFlag = (ImageView) listItemView.findViewById(R.id.stock_flag_new);
             currencyFlag.setImageResource(currentCurrency.getCurrencyFlag());
@@ -53,7 +64,7 @@ public class CurrencyAdapter extends ArrayAdapter<Currency> {
             TextView buyPrice = (TextView) listItemView.findViewById(R.id.stock_price_new);
             buyPrice.setText("" + currentCurrency.getStockPrice());
 
-        }else if (currentCurrency.getType() == EXCHANGER_ID){
+        } else if (currentCurrency.getType() == EXCHANGER_ID) {
             //has 4 columns
             ImageView currencyFlag = (ImageView) listItemView.findViewById(R.id.currencyFlag);
             currencyFlag.setImageResource(currentCurrency.getCurrencyFlag());

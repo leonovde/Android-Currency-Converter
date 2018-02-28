@@ -2,6 +2,7 @@ package com.leonov_dev.currencyconverter;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() == 1){
+
+        }
+        Log.e(LOG_TAG, " >>>>>>>>>>>> Size of backstack " + fragmentManager.getBackStackEntryCount());
+        Log.e(LOG_TAG, " >>>>>>>>>>>> List of fragments " + fragmentManager.getFragments());
     }
 
     @Override

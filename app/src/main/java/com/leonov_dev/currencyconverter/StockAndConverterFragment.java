@@ -17,6 +17,7 @@ public class StockAndConverterFragment extends Fragment {
 
     private ViewPager viewPager;
 
+    private final String LOG_TAG = this.getClass().getSimpleName();
 
     public StockAndConverterFragment() {
         // Required empty public constructor
@@ -40,5 +41,7 @@ public class StockAndConverterFragment extends Fragment {
 
         return rootView;
     }
+
+
 
 }

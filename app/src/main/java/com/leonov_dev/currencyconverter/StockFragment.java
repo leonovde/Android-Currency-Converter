@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 
 import android.util.Log;
@@ -36,7 +38,7 @@ import android.app.LoaderManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StockFragment extends Fragment{
+public class StockFragment extends Fragment {
 
     private final String URL_MYR = "http://api.fixer.io/latest?base=MYR";
 
@@ -137,16 +139,16 @@ public class StockFragment extends Fragment{
     }
 
 
-    private void displayInfo(){
+    private void displayInfo() {
         //Getting Reference on DB to read from
         SQLiteDatabase dbDisplay = mDbHelper.getReadableDatabase();
 
         //Initializing cursor to read from DB
         Cursor cursor = dbDisplay.query(CurrencyContract.CurrencyEntry.TABLE_NAME, null, null, null, null, null, null);
-        if (cursor.getCount() == 0){
+        if (cursor.getCount() == 0) {
             mAdapter.clear();
             refreshLinearLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             try {
                 Log.e(LOG_TAG, "Database is not empty, executing");
                 int jsonColumnIndex = cursor.getColumnIndex(CurrencyContract.CurrencyEntry.COLUMN_CURRENCY_JSON);
@@ -171,33 +173,39 @@ public class StockFragment extends Fragment{
 
     private List<Currency> parseJSON(String jsonString) throws JSONException {
         List<Currency> currencies = new ArrayList<Currency>();
-        try{
+        try {
             JSONObject currenciesJSON = new JSONObject(jsonString);
             //Parse JSON file and put Data in ArrayList
             JSONObject rates = currenciesJSON.getJSONObject("rates");
-            if (rates != null){
+            if (rates != null) {
                 double priceOnStock;
-                for (int i = 0; i < CurrencyData.curAcronyms.length; i++){
+                for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
                     priceOnStock = getPrice(CurrencyData.curAcronyms[i], rates);
-                    currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, STOCK_ID));
+                    //TODO separate methods on PARSE, FILL with Data form DB (on pref change and no wifi), get data from web
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    if (sharedPreferences.getBoolean(CurrencyData.curAcronyms[i].toLowerCase(), true)) {
+                        currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, STOCK_ID));
+                    }
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             Log.e(LOG_TAG, "Error parsing JSON" + e);
         }
 
         return currencies;
     }
 
-    private double getPrice (String currencyAcronym, JSONObject rates){
+    private double getPrice(String currencyAcronym, JSONObject rates) {
         double priceOnStock = 0.000;
         try {
             priceOnStock = rates.getDouble(currencyAcronym);
-        }catch (JSONException e){
+        } catch (JSONException e) {
             Log.e(LOG_TAG, "Error getting price " + e);
         }
         return priceOnStock;
     }
+
 
     private LoaderManager.LoaderCallbacks<JSONObject> resultLoader = new LoaderManager.LoaderCallbacks<JSONObject>() {
         @Override
@@ -229,7 +237,7 @@ public class StockFragment extends Fragment{
     };
 
     //Find Last Record ID
-    private long findIdOfLastRecord(){
+    private long findIdOfLastRecord() {
         //Get all rows
         Cursor cursor = db.query(CurrencyContract.CurrencyEntry.TABLE_NAME, null, null, null, null, null, null);
         long bufId = -1;
@@ -240,56 +248,56 @@ public class StockFragment extends Fragment{
             cursor.moveToLast();
             //Get an ID of last records
             bufId = cursor.getLong(idColumnIndex);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(LOG_TAG, "Error getting last record" + e);
-        }finally {
+        } finally {
             cursor.close();
         }
         return bufId;
     }
 
-    public void sendJsonToDatabase(JSONObject currenciesJSON){
+    public void sendJsonToDatabase(JSONObject currenciesJSON) {
         //read the JSONobject and fill the List of currencies;
         try {
             String jsonString = currenciesJSON.toString();
             writeInDatabase(jsonString);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(LOG_TAG, "Error sending data to DB " + e);
         }
     }
 
-    private void writeInDatabase(String jsonString){
+    private void writeInDatabase(String jsonString) {
         SQLiteDatabase dbInserter = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(CurrencyContract.CurrencyEntry.COLUMN_CURRENCY_JSON, jsonString);
         //Check if table is empty, then INSERT new record
         //If table is not, UPDATE on the place of last record
-        if (countRecords() == -1 || countRecords() == 0){
+        if (countRecords() == -1 || countRecords() == 0) {
             long newRowId = dbInserter.insert(CurrencyContract.CurrencyEntry.TABLE_NAME, null, values);
-        }else{
+        } else {
             //Update table_name set COLUMN_CURRENCY_JSON = jsonString where _id = findIdOfLastRecord
             String selection = "_id = ?";
-            String selectionArgs[] = { "" + findIdOfLastRecord()};
+            String selectionArgs[] = {"" + findIdOfLastRecord()};
             dbInserter.update(CurrencyContract.CurrencyEntry.TABLE_NAME, values, selection, selectionArgs);
         }
 
 
     }
 
-    private int countRecords(){
+    private int countRecords() {
         try {
             mCountCursor = db.query(CurrencyContract.CurrencyEntry.TABLE_NAME, null, null, null, null, null, null);
             recordsCount = mCountCursor.getCount();
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e(LOG_TAG, "Error getting number of records" + e);
-        }finally {
+        } finally {
             mCountCursor.close();
         }
         return recordsCount;
     }
 
-    public void timerDelayRemoveDialog(long time, final ProgressDialog pd){
+    public void timerDelayRemoveDialog(long time, final ProgressDialog pd) {
         if (isStartedLoader) {
             try {
                 Handler handler = new Handler();
