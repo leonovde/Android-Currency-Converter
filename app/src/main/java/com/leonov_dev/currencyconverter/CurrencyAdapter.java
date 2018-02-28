@@ -40,14 +40,7 @@ public class CurrencyAdapter extends ArrayAdapter<Currency> {
         }
 
         Currency currentCurrency = getItem(position);
-//        //TODO is not the best implementation coz it triggers every time user scrolls. Need to restrict while parsing
-//        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        boolean isToBeDisplayed;
-//        Log.e("SHARED PREFS ", ">>>>>>>>>>>>>" + sharedPreferences.getAll());
-//        Log.e("CHECKING ", ">>>>>>>>>>>>>> If" + sharedPreferences.contains(currentCurrency.getCurrencyName().toLowerCase()));
-//        Log.e("OK this happens", ">>>>>>>>>>>>>>>> " + currentCurrency.getCurrencyName().toLowerCase());
-//        isToBeDisplayed = sharedPreferences.getBoolean(currentCurrency.getCurrencyName().toLowerCase(), true);
-//
+
         if (currentCurrency.getType() == STOCK_ID) {
             //has 3 column
             ImageView currencyFlag = (ImageView) listItemView.findViewById(R.id.stock_flag_new);
