@@ -89,4 +89,20 @@
         android:title="@string/pref_inr_label"
         android:icon="@drawable/flag_india"/>
 
+    <CheckBoxPreference
+        android:defaultValue="@bool/pref_default_currency"
+        android:key="@string/pref_thb_key"
+        android:summaryOn="@string/pref_summary_on"
+        android:summaryOff="@string/pref_summary_off"
+        android:title="@string/pref_thb_label"
+        android:icon="@drawable/flag_thai"/>
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/pref_default_currency"
+        android:key="@string/pref_krw_key"
+        android:summaryOn="@string/pref_summary_on"
+        android:summaryOff="@string/pref_summary_off"
+        android:title="@string/pref_krw_label"
+        android:icon="@drawable/flag_skor"/>
+
 </PreferenceScreen>

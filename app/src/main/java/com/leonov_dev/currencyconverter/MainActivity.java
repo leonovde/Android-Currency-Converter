@@ -12,9 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.leonov_dev.currencyconverter.preferences.CurrencySettingsFragment;
+
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
@@ -29,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_wrapper);
-
-        Log.e(LOG_TAG, "On Create");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,8 +67,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (fragmentManager.getBackStackEntryCount() == 1){
 
         }
-        Log.e(LOG_TAG, " >>>>>>>>>>>> Size of backstack " + fragmentManager.getBackStackEntryCount());
-        Log.e(LOG_TAG, " >>>>>>>>>>>> List of fragments " + fragmentManager.getFragments());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int elementId = item.getItemId();
+        //TODO make separate class for staring the fragment, repalce in here and onNavigationItemSelected
+        //Or Put fragment inside the activity and start it here
+        Class fragmentClass = null;
+        Fragment fragment = null;
+        if (elementId == R.id.action_settings){
+            fragmentClass = CurrencySettingsFragment.class;
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }catch (Exception e){
+                Log.e(LOG_TAG, "Error Creating fragment " + e);
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -81,10 +109,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentClass = StockAndConverterFragment.class;
         }else if (id == R.id.exchanger_rates_item) {
             fragmentClass = ExchangerFragment.class;
-        }else if (id == R.id.about_item){
+        }else if (id == R.id.about_item) {
             fragmentClass = AboutFragment.class;
-        }else if (id == R.id.settings_item){
-            fragmentClass = CurrencySettingsFragment.class;
         }
 
         try {

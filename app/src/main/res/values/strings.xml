@@ -55,6 +55,8 @@
 
     <string name="getting_rates">Requesting Rates</string>
 
+    <string name="settings_action_bar">Settings</string>
+
 
     <!-- Strings related to Preferences -->
     <string name="pref_currencies_key">currencies_to_show</string>
@@ -74,7 +76,8 @@
     <string name="pref_jpy_key">jpy</string>
     <string name="pref_php_key">php</string>
     <string name="pref_inr_key">inr</string>
-    <!--<string name="pref_krw_key">krw</string>-->
+    <string name="pref_thb_key">thb</string>
+    <string name="pref_krw_key">krw</string>
 
     <string name="pref_usd_label">Show USD rate</string>
     <string name="pref_eur_label">Show EUR rate</string>
@@ -87,6 +90,7 @@
     <string name="pref_jpy_label">Show JPY rate</string>
     <string name="pref_php_label">Show PHP rate</string>
     <string name="pref_inr_label">Show INR rate</string>
-    <!--<string name="pref_krw_label">Show KRW rate</string>-->
+    <string name="pref_thb_label">Show THB rate</string>
+    <string name="pref_krw_label">Show KRW rate</string>
 
 </resources>

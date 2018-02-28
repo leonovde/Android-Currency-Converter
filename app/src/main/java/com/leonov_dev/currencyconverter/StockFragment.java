@@ -135,6 +135,8 @@ public class StockFragment extends Fragment {
             displayInfo();
         }
 
+
+
         return rootView;
     }
 
