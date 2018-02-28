@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.leonov_dev.currencyconverter.preferences.CurrencySettingsActivity;
 import com.leonov_dev.currencyconverter.preferences.CurrencySettingsFragment;
 
 import java.util.zip.Inflater;
@@ -83,15 +84,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment = null;
         if (elementId == R.id.action_settings){
             fragmentClass = CurrencySettingsFragment.class;
-            try {
-                fragment = (Fragment) fragmentClass.newInstance();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.container, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }catch (Exception e){
-                Log.e(LOG_TAG, "Error Creating fragment " + e);
-            }
+            Intent intent = new Intent(this, CurrencySettingsActivity.class);
+            startActivity(intent);
+//            try {
+//                fragment = (Fragment) fragmentClass.newInstance();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.container, fragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }catch (Exception e){
+//                Log.e(LOG_TAG, "Error Creating fragment " + e);
+//            }
             return true;
         }
         return super.onOptionsItemSelected(item);

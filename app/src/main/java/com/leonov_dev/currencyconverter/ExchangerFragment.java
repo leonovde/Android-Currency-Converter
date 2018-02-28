@@ -1,8 +1,10 @@
 package com.leonov_dev.currencyconverter;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -120,7 +122,10 @@ public class ExchangerFragment extends Fragment {
                 double priceOnStock;
                 for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
                     priceOnStock = getPrice(CurrencyData.curAcronyms[i], rates);
-                    currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, EXCHANGER_ID));
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                    if (sharedPreferences.getBoolean(CurrencyData.curAcronyms[i].toLowerCase(), true)) {
+                        currencies.add(new Currency(CurrencyData.curAcronyms[i], priceOnStock, EXCHANGER_ID));
+                    }
                 }
             }
         }catch (Exception e){

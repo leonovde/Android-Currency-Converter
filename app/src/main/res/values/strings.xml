@@ -17,9 +17,6 @@
     <string name="action_refresh_data" translatable="false">Refresh</string>
     <string name="action_do_nothing" translatable="false">Do Nothing</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="MYR" translatable="false">MYR(RM)</string>
     <string name="USD" translatable="false">USD</string>
     <string name="EUR" translatable="false">EUR</string>

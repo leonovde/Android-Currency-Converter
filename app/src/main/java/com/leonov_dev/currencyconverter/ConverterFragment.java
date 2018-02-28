@@ -207,7 +207,6 @@ public class ConverterFragment extends Fragment {
 
 
         return rootView;
-        //TODO restrict EditText on input of 2 decimal points
     }
 
     @Override
