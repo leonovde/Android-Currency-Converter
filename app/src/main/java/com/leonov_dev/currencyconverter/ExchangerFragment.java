@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExchangerFragment extends Fragment {
+public class ExchangerFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private TextView mBuyTextView;
     private TextView mSellTextView;
@@ -75,6 +75,20 @@ public class ExchangerFragment extends Fragment {
         displayInfo();
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
+        super.onDestroy();
     }
 
     private void displayInfo(){
@@ -146,4 +160,8 @@ public class ExchangerFragment extends Fragment {
         return priceOnStock;
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        displayInfo();
+    }
 }

@@ -38,7 +38,7 @@ import android.app.LoaderManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StockFragment extends Fragment {
+public class StockFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private final String URL_MYR = "http://api.fixer.io/latest?base=MYR";
 
@@ -66,6 +66,20 @@ public class StockFragment extends Fragment {
 
     public StockFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onResume() {
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
+        super.onDestroy();
     }
 
     @Override
@@ -134,8 +148,6 @@ public class StockFragment extends Fragment {
         if (!MainActivity.isFirstRun || !(networkInfo != null && networkInfo.isConnected())) {
             displayInfo();
         }
-
-
 
         return rootView;
     }
@@ -317,4 +329,9 @@ public class StockFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        //once Updated Preferences - update list of displayed currencies
+        displayInfo();
+    }
 }
