@@ -20,18 +20,18 @@ public class CurrencySettingsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        //TODO change color of  the arrow and action bar
-
         if (actionBar != null) {
+
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //TODO make it properly
-        NavUtils.navigateUpFromSameTask(this);
-
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
