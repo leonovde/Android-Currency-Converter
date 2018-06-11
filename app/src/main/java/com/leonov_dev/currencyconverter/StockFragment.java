@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.leonov_dev.currencyconverter.data.Currency;
 import com.leonov_dev.currencyconverter.data.CurrencyData;
 import com.leonov_dev.currencyconverter.data.CurrencyDbHelper;
 import com.leonov_dev.currencyconverter.data.CurrencyContract;

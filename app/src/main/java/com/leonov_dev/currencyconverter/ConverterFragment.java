@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.leonov_dev.currencyconverter.data.Currency;
 import com.leonov_dev.currencyconverter.data.CurrencyContract;
 import com.leonov_dev.currencyconverter.data.CurrencyDbHelper;
 

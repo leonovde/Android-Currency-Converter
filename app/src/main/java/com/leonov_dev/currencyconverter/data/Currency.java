@@ -1,4 +1,6 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.data;
+
+import com.leonov_dev.currencyconverter.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
