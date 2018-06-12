@@ -5,7 +5,7 @@ import com.leonov_dev.currencyconverter.R;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
-public class CurrencyReplacement {
+public final class CurrencyReplacement {
 
     private int mCurrencyFlag;
     private String mCurrencyName;

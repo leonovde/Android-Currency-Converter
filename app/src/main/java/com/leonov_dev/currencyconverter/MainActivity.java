@@ -110,9 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.home_page_item){
             fragmentClass = StockAndConverterFragment.class;
-        }else if (id == R.id.exchanger_rates_item) {
-            fragmentClass = ExchangerFragment.class;
-        }else if (id == R.id.about_item) {
+        } else if (id == R.id.about_item) {
             fragmentClass = AboutFragment.class;
         }
 

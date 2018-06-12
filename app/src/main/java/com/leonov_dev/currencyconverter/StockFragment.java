@@ -45,7 +45,6 @@ public class StockFragment extends Fragment implements SharedPreferences.OnShare
 
     private TextView mBuyTextView;
     private TextView mSellTextView;
-    private LinearLayout mTopBarLinearLayout;
     private CurrencyAdapter mAdapter;
 
     private final int STOCK_ID = 1;
@@ -90,10 +89,6 @@ public class StockFragment extends Fragment implements SharedPreferences.OnShare
         //Find reference to the list view
         ListView currencyListView = (ListView) rootView.findViewById(R.id.list);
 
-        //Hides linear layout top bar Flag/Quantity/Price
-        mTopBarLinearLayout = (LinearLayout) rootView.findViewById(R.id.top_bar);
-        mTopBarLinearLayout.setVisibility(View.GONE);
-
         //Hide notification cation. Notifies that page needs to be refreshed
         refreshLinearLayout = (LinearLayout) rootView.findViewById(R.id.noDataNotification);
 
@@ -108,15 +103,6 @@ public class StockFragment extends Fragment implements SharedPreferences.OnShare
         });
         refreshLinearLayout.setVisibility(View.GONE);
 
-
-        //Assigning the text to top line last two TextViews (it varies between activities)
-        mBuyTextView = (TextView) rootView.findViewById(R.id.buyPrice);
-        mSellTextView = (TextView) rootView.findViewById(R.id.sellPrice);
-
-        //Only stock price mentioned in this Fragment
-        mBuyTextView.setText(R.string.price);
-        //Top line has only two columns in this fragment
-        mSellTextView.setVisibility(View.GONE);
 
         progressDialog = new ProgressDialog(getActivity());
 

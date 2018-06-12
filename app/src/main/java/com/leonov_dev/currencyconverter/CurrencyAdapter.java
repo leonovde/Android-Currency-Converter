@@ -32,49 +32,26 @@ public class CurrencyAdapter extends ArrayAdapter<Currency> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
         if (listItemView == null){
-            if(getItem(position).getType() == STOCK_ID){
-                listItemView = LayoutInflater.from(getContext()).inflate(R.layout.currency_item_two, parent, false);
-            }else {
-                listItemView = LayoutInflater.from(getContext()).inflate(R.layout.currency_item, parent, false);
-            }
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.currency_item_two, parent, false);
         }
 
         Currency currentCurrency = getItem(position);
 
-        if (currentCurrency.getType() == STOCK_ID) {
-            //has 3 column
-            ImageView currencyFlag = (ImageView) listItemView.findViewById(R.id.stock_flag_new);
-            currencyFlag.setImageResource(currentCurrency.getCurrencyFlag());
-            //set image currentCurrency.getCurrencyFlag();
+        //has 3 column
+        ImageView currencyFlag = (ImageView) listItemView.findViewById(R.id.stock_flag_new);
+        currencyFlag.setImageResource(currentCurrency.getCurrencyFlag());
+        //set image currentCurrency.getCurrencyFlag();
 
-            TextView currencyName = (TextView) listItemView.findViewById(R.id.stock_currency_name_new);
-            currencyName.setText(currentCurrency.getCurrencyName());
+        TextView currencyName = (TextView) listItemView.findViewById(R.id.stock_currency_name_new);
+        currencyName.setText(currentCurrency.getCurrencyName());
 
-            TextView currencyQuantity = (TextView) listItemView.findViewById(R.id.stock_amount_new);
-            String addToQuantity = getContext().getString(R.string.for_quantity);
-            currencyQuantity.setText(addToQuantity + " " + currentCurrency.getQuantity());
+        TextView currencyQuantity = (TextView) listItemView.findViewById(R.id.stock_amount_new);
+        String addToQuantity = getContext().getString(R.string.for_quantity);
+        currencyQuantity.setText(addToQuantity + " " + currentCurrency.getQuantity());
 
-            TextView buyPrice = (TextView) listItemView.findViewById(R.id.stock_price_new);
-            buyPrice.setText("" + currentCurrency.getStockPrice());
+        TextView buyPrice = (TextView) listItemView.findViewById(R.id.stock_price_new);
+        buyPrice.setText("" + currentCurrency.getStockPrice());
 
-        } else if (currentCurrency.getType() == EXCHANGER_ID) {
-            //has 4 columns
-            ImageView currencyFlag = (ImageView) listItemView.findViewById(R.id.currencyFlag);
-            currencyFlag.setImageResource(currentCurrency.getCurrencyFlag());
-
-            TextView currencyName = (TextView) listItemView.findViewById(R.id.currencyName);
-            currencyName.setText(currentCurrency.getCurrencyName());
-
-            TextView currencyQuantity = (TextView) listItemView.findViewById(R.id.quantity);
-            currencyQuantity.setText("" + currentCurrency.getQuantity());
-
-            TextView buyPrice = (TextView) listItemView.findViewById(R.id.buyPrice);
-            buyPrice.setText("" + currentCurrency.getExchangerBuyPrice());
-
-            TextView sellPrice = (TextView) listItemView.findViewById(R.id.sellPrice);
-            sellPrice.setVisibility(View.VISIBLE);
-            sellPrice.setText("" + currentCurrency.getExchangerSellPrice());
-        }
         return listItemView;
     }
 }
