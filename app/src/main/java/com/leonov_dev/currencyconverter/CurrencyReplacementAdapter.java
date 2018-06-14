@@ -28,6 +28,11 @@ public class CurrencyReplacementAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void replaceData(List<CurrencyReplacement> currencies) {
+        setList(currencies);
+    }
+
+
     @Override
     public int getCount() {
         return mCurrencies != null ? mCurrencies.size() : 0;

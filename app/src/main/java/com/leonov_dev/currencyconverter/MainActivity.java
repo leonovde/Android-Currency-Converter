@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FragmentTransaction ft;
 
+    private StockConverterViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +59,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ft.addToBackStack(null);
         ft.commit();
 
-        // Use a Factory to inject dependencies into the ViewModel
-        ViewModelFactory factory = ViewModelFactory.getInstance(this.getApplication());
-        StockConverterViewModel viewModel =
-                ViewModelProviders.of(this, factory).get(StockConverterViewModel.class);
-        viewModel.loadRemoteData();
+        viewModel = obtainViewModel(this);
 
+    }
+
+    public static StockConverterViewModel obtainViewModel(FragmentActivity activity) {
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
+        StockConverterViewModel viewModel =
+                ViewModelProviders.of(activity, factory).get(StockConverterViewModel.class);
+
+        return viewModel;
     }
 
     @Override

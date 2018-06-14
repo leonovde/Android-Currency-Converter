@@ -29,7 +29,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_gravity="center"
-                android:background="@{currency.currencyFlag}" />
+                app:flagLogo="@{currency.currencyFlag}"/>
 
             <TextView
                 android:id="@+id/stock_currency_name_new"
@@ -61,7 +61,7 @@
                 android:layout_gravity="end"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:text="@{currency.stockPrice}"
+                android:text="@{String.valueOf(currency.stockPrice)}"
                 android:textColor="@color/blackText"
                 android:textSize="18sp"/>
 
@@ -74,7 +74,7 @@
                 android:layout_gravity="end"
                 android:textAllCaps="true"
                 android:fontFamily="sans-serif-medium"
-                android:text="@{@string/for_quantity + currency.quantity}"
+                android:text="@{@string/for_quantity + String.valueOf(currency.quantity)}"
                 android:textSize="12sp"/>
 
         </LinearLayout>

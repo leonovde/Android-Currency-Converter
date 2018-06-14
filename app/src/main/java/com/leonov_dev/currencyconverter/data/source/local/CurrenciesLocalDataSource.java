@@ -1,6 +1,7 @@
 package com.leonov_dev.currencyconverter.data.source.local;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 import com.leonov_dev.currencyconverter.data.source.CurrenciesJsonDataSoruce;
@@ -70,6 +71,7 @@ public class CurrenciesLocalDataSource implements CurrenciesJsonDataSoruce.Local
             @Override
             public void run() {
                 for (CurrencyReplacement currency : currencies) {
+                    Log.e("2TAG", "NAME: " + currency.mCurrencyName + "\n" + "PRICE: " + currency.mStockPrice);
                     mCurrencyDao.insertCurrency(currency);
                 }
             }

@@ -6,6 +6,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewmodel"
             type="com.leonov_dev.currencyconverter.StockConverterViewModel"/>
@@ -23,7 +26,9 @@
              android:layout_height="wrap_content"
              android:dividerHeight="0.5dp"
              tools:layout_editor_absoluteY="0dp"
-             tools:layout_editor_absoluteX="8dp"/>
+             tools:layout_editor_absoluteX="8dp"
+             android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}"
+             app:items="@{viewmodel.items}"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -33,6 +38,7 @@
             android:id="@+id/noDataNotification"
             android:layout_gravity="center"
             android:gravity="center_vertical"
+            android:visibility="@{viewmodel.empty ? View.VISIBLE : View.GONE}"
             android:textAlignment="center">
 
             <ImageView

@@ -28,6 +28,6 @@ task clean(type: Delete) {
 
 ext{
     // Architecture Components dependencies
-    roomVersion = "1.0.0"
-    archLifecycleVersion = "1.0.0-rc1"
+    roomVersion = "1.1.0"
+    archLifecycleVersion = "1.1.0"
 }

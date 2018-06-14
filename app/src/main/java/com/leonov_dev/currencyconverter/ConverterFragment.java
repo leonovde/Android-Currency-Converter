@@ -66,6 +66,11 @@ public class ConverterFragment extends Fragment {
         // Required empty public constructor
     }
 
+    //-----------------CHANGES-------------------
+    private StockConverterViewModel mStockViewModel;
+
+    private ConverterFragmentBinding mConverterBinding;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -210,78 +215,25 @@ public class ConverterFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        //if opened for first time then load data
-        if (!isAlreadyOpened) {
-            try {
-                if (isVisibleToUser) {
-                    loadJsonFromDb();
-                    isAlreadyOpened = true;
-                    //Kludge
-                    if (isFirstOpenConverter) {
-                        convertOthersCurrencyNameSpinner.setSelection(INDEX_OF_EU);
-                    }
-                }
-            } catch (Exception e) {
-                Log.e(LOG_TAG, "Exceprion on start occured " + e);
-            }
-        }
-    }
-
-    //Gets the Json String from DB and put in global object.
-    private void loadJsonFromDb() {
-        CurrencyDbHelper mDbHelper = new CurrencyDbHelper(getContext());
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-        Cursor cursor = db.query(CurrencyContract.CurrencyEntry.TABLE_NAME, null, null, null, null, null, null);
-        try {
-            if (cursor.getCount() != 0) {
-                //find index of jsonString column in DB
-                int jsonColumnIndex = cursor.getColumnIndex(CurrencyContract.CurrencyEntry.COLUMN_CURRENCY_JSON);
-                //move to last record (freshest)
-                cursor.moveToLast();
-                //get String of json
-                String jsonString = cursor.getString(jsonColumnIndex);
-                //Convert string in JSON Object
-                currenciesJSON = new JSONObject(jsonString);
-            }
-        }catch(Exception e){
-            Log.e(LOG_TAG, "Error loading from Db " + e);
-        }finally {
-            cursor.close();
-        }
-    }
-
-    private void parseJson(String currency, int MyrOrOthers){
-        double price;
-        int quantity;
-        try {
-            //Get Inner Object from JSON object
-            JSONObject rates = currenciesJSON.getJSONObject("rates");
-            //Get price by passing acronym to Json, searching for price, converting to Double
-            price = Double.parseDouble(rates.getString(currency));
-
-            //Create object Currency to get sell / buy / stock price if required
-            Currency bufCurrency = new Currency(currency, price, EXCHANGER_ID);
-
-            quantity = bufCurrency.getQuantity();
-            convertOthersFlagIV.setImageResource(bufCurrency.getCurrencyFlag());
-            //getting price for under conversion info
-            otherCurrencyNominalPrice = price;
-
-            if(MyrOrOthers == MYR_FLAG){
-                //price stays the same as in JSON ex: 0.424, not reversed 1/0.424 as in Currency.class
-            }else {
-                price = bufCurrency.getStockPrice();
-            }
-            quantityOfCurrency = quantity;
-            priceOfCurrency = price;
-        }catch (Exception e){
-            Log.e(LOG_TAG, "Error parsing JSON " + e);
-        }
-
-    }
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        //if opened for first time then load data
+//        if (!isAlreadyOpened) {
+//            try {
+//                if (isVisibleToUser) {
+//                    loadJsonFromDb();
+//                    isAlreadyOpened = true;
+//                    //Kludge
+//                    if (isFirstOpenConverter) {
+//                        convertOthersCurrencyNameSpinner.setSelection(INDEX_OF_EU);
+//                    }
+//                }
+//            } catch (Exception e) {
+//                Log.e(LOG_TAG, "Exceprion on start occured " + e);
+//            }
+//        }
+//    }
 
     //Pass the price from TextView Edited
     private double calculateConversion(double amountFrom, int MyrOrOthers){

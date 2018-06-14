@@ -3,8 +3,10 @@ package com.leonov_dev.currencyconverter.data;
 import android.app.Application;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.leonov_dev.currencyconverter.R;
 
@@ -25,16 +27,23 @@ public class CurrencyReplacement {
     @ColumnInfo(name = "price")
     public double mStockPrice;
 
+    public CurrencyReplacement(){
 
+    }
+
+    //TODO OMG WHAT IS THIS I WAS STRUGGLING HAVING ONE SINGLE CONSTRUCTOR...
+    //TODO when you insert using dao, default constructor is used on object
+    @Ignore
     public CurrencyReplacement(@NonNull String currencyName, @NonNull double stockPrice){
         mCurrencyName = currencyName;
         mStockPrice = flipPrice(stockPrice);
         setSellBuyQuantityStock(mCurrencyName, mStockPrice);
+        Log.e("CREATED", mCurrencyName + " price " + mStockPrice);
     }
 
     //flip the price from MYR to CURRENCY => CURRENCY to MYR
     private double flipPrice(double price){
-        return 1/price;
+        return 1 / price;
     }
 
     //formats the price to accuracy of 3 decimal points
@@ -107,6 +116,10 @@ public class CurrencyReplacement {
 
     public String getCurrencyName(){
         return mCurrencyName;
+    }
+
+    public void SetCurrencyName(String currencyName){
+        mCurrencyName = currencyName;
     }
 
     public int getQuantity(){
