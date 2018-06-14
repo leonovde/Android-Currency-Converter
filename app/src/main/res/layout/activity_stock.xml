@@ -1,66 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-     <ListView
-         android:id="@+id/list"
-         android:orientation="vertical"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:dividerHeight="0.5dp"
-         tools:layout_editor_absoluteY="0dp"
-         tools:layout_editor_absoluteX="8dp"/>
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.leonov_dev.currencyconverter.StockConverterViewModel"/>
+    </data>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/noDataNotification"
-        android:layout_gravity="center"
-        android:gravity="center_vertical"
-        android:textAlignment="center">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:src="@drawable/ic_no_signal"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"/>
+         <ListView
+             android:id="@+id/list"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:dividerHeight="0.5dp"
+             tools:layout_editor_absoluteY="0dp"
+             tools:layout_editor_absoluteX="8dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:id="@+id/noDataNotification"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:text="No Internet Connection"
-            android:paddingTop="8dp"/>
+            android:gravity="center_vertical"
+            android:textAlignment="center">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="To access the latest rates, you need to be connetced to the Internet."
-            android:layout_gravity="center"
-            android:paddingRight="30dp"
-            android:paddingLeft="30dp"
-            android:paddingTop="16dp"/>
+            <ImageView
+                android:src="@drawable/ic_no_signal"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:text="Try Again!"
-            android:textColor="@color/colorAccent"
-            android:paddingTop="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:text="No Internet Connection"
+                android:paddingTop="8dp"/>
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="To access the latest rates, you need to be connetced to the Internet."
+                android:layout_gravity="center"
+                android:paddingRight="30dp"
+                android:paddingLeft="30dp"
+                android:paddingTop="16dp"/>
 
- </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="Try Again!"
+                android:textColor="@color/colorAccent"
+                android:paddingTop="8dp"/>
+
+        </LinearLayout>
+
+     </LinearLayout>
+
+</layout>

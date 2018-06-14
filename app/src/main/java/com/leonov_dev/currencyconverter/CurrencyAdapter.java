@@ -13,18 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.leonov_dev.currencyconverter.data.Currency;
+import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 
 import java.util.List;
 
 public class CurrencyAdapter extends ArrayAdapter<Currency> {
 
-    private final int EXCHANGER_ID = 2;
-    private final int STOCK_ID = 1;
-    private SharedPreferences sharedPreferences;
-
-
     public CurrencyAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Currency> currency) {
-        super(context, 0,  currency);
+        super(context, 0, currency);
     }
 
     @NonNull

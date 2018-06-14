@@ -64,6 +64,15 @@ public class StockFragment extends Fragment implements SharedPreferences.OnShare
 
     public final String LOG_TAG = this.getClass().getSimpleName();
 
+    //------------CHANGES-------------------------
+
+    private StockConverterViewModel mStockViewModel;
+
+//    private TasksFragBinding mTasksFragBinding;
+
+    private CurrencyReplacementAdapter mCurrencyAdapter;
+
+
     public StockFragment() {
         // Required empty public constructor
     }
