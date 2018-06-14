@@ -136,6 +136,16 @@ public class StockFragment extends Fragment implements SharedPreferences.OnShare
             displayInfo();
         }
 
+//        mTasksFragBinding = TasksFragBinding.inflate(inflater, container, false);
+//
+//        mTasksViewModel = TasksActivity.obtainViewModel(getActivity());
+//
+//        mTasksFragBinding.setViewmodel(mTasksViewModel);
+//
+//        setHasOptionsMenu(true);
+//
+//        return mTasksFragBinding.getRoot();
+
         return rootView;
     }
 

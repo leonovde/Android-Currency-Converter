@@ -1,21 +1,34 @@
 package com.leonov_dev.currencyconverter.data;
 
+import android.app.Application;
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.leonov_dev.currencyconverter.R;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
-public final class CurrencyReplacement {
+@Entity(tableName = "currencies")
+public class CurrencyReplacement {
 
-    private int mCurrencyFlag;
-    private String mCurrencyName;
-    private int mQuantity;
-    private double mStockPrice;
+    @PrimaryKey
+    @ColumnInfo(name = "currency_id")
+    @NonNull
+    public String mCurrencyName;
+    @ColumnInfo(name = "flag")
+    public int mCurrencyFlag;
+    @ColumnInfo(name = "quantity")
+    public int mQuantity;
+    @ColumnInfo(name = "price")
+    public double mStockPrice;
 
 
-    public CurrencyReplacement(String currencyName, double price){
+    public CurrencyReplacement(@NonNull String currencyName, @NonNull double stockPrice){
         mCurrencyName = currencyName;
-        mStockPrice = flipPrice(price);
+        mStockPrice = flipPrice(stockPrice);
         setSellBuyQuantityStock(mCurrencyName, mStockPrice);
     }
 
@@ -103,4 +116,5 @@ public final class CurrencyReplacement {
     public double getStockPrice(){
         return mStockPrice;
     }
+
 }

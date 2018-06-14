@@ -3,6 +3,8 @@ package com.leonov_dev.currencyconverter;
 import android.content.Context;
 import android.content.AsyncTaskLoader;
 
+import com.leonov_dev.currencyconverter.utils.QueryUtils;
+
 import org.json.JSONObject;
 
 public class CurrencyLoader extends AsyncTaskLoader<JSONObject> {

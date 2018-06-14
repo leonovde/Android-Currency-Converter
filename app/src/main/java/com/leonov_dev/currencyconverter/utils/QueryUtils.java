@@ -1,4 +1,4 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.utils;
 
 /**
  * Created by dmitrii_leonov on 13.03.17.

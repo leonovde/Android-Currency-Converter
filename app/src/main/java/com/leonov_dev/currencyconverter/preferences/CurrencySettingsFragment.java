@@ -11,7 +11,5 @@ public class CurrencySettingsFragment extends PreferenceFragmentCompat {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_currency);
-//        ActionBar actionBar = getActivity().getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 }

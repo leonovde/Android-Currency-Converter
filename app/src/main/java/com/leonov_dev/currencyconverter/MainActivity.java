@@ -1,5 +1,6 @@
 package com.leonov_dev.currencyconverter;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -24,7 +25,7 @@ import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
+    //TODO get rid of this cludge
     public static boolean isFirstRun = true;
 
     private final String LOG_TAG = this.getClass().getSimpleName();
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ft.addToBackStack(null);
         ft.commit();
 
+        // Use a Factory to inject dependencies into the ViewModel
+        ViewModelFactory factory = ViewModelFactory.getInstance(this.getApplication());
+        StockConverterViewModel viewModel =
+                ViewModelProviders.of(this, factory).get(StockConverterViewModel.class);
+        viewModel.loadRemoteData();
+
     }
 
     @Override
@@ -81,21 +88,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int elementId = item.getItemId();
-        Class fragmentClass = null;
-        Fragment fragment = null;
         if (elementId == R.id.action_settings){
-            fragmentClass = CurrencySettingsFragment.class;
             Intent intent = new Intent(this, CurrencySettingsActivity.class);
             startActivity(intent);
-//            try {
-//                fragment = (Fragment) fragmentClass.newInstance();
-//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//                transaction.replace(R.id.container, fragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
-//            }catch (Exception e){
-//                Log.e(LOG_TAG, "Error Creating fragment " + e);
-//            }
             return true;
         }
         return super.onOptionsItemSelected(item);

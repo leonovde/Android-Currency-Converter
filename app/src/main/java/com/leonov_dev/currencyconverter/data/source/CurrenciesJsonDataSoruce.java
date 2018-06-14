@@ -1,22 +1,43 @@
 package com.leonov_dev.currencyconverter.data.source;
 
-import com.leonov_dev.currencyconverter.data.CurrenciesJson;
+import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
+import com.leonov_dev.currencyconverter.data.source.remote.PostModel;
+
+import java.util.List;
 
 public interface CurrenciesJsonDataSoruce {
 
-    interface LocalSource{
+    interface LoadCurrenciesCallback {
 
-        String loadCurrenciesJson();
+        void onCurrencyLoaded(String jsonResponse);
 
-        void updateCurrenciesJson(CurrenciesJson currenciesJson);
-
-        void insertCurrenciesJson(CurrenciesJson currenciesJson);
+        void onNothingLoaded();
 
     }
 
-    interface RemoteSource{
+    interface  LoadLocalCurrenciesCallback {
 
-        String downloadCurrenciesJson();
+        void onCurrencyLoaded(List<CurrencyReplacement> currencies);
+
+        void onNothingLoaded();
+
+    }
+
+    interface LocalSource {
+
+        void loadCurrencyReplacements(LoadLocalCurrenciesCallback callback);
+
+        void updateCurrency(CurrencyReplacement currency);
+
+        void insertCurrency(CurrencyReplacement currency);
+
+        void insertCurrencies(List<CurrencyReplacement> currencies);
+
+    }
+
+    interface RemoteSource {
+
+        void downloadCurrenciesJson(LoadCurrenciesCallback callback);
 
     }
 

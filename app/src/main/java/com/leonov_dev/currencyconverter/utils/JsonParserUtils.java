@@ -1,0 +1,30 @@
+package com.leonov_dev.currencyconverter.utils;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.leonov_dev.currencyconverter.data.CurrencyData;
+import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class JsonParserUtils {
+
+    public static List<CurrencyReplacement> parseJSON(String jsonString) throws JSONException {
+        List<CurrencyReplacement> currencies = new ArrayList<>();
+        JSONObject currenciesJSON = new JSONObject(jsonString);
+        double priceOnStock;
+        for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
+            priceOnStock = currenciesJSON.getDouble(CurrencyData.curAcronyms[i]);
+            currencies.add(new CurrencyReplacement(CurrencyData.curAcronyms[i], priceOnStock));
+
+        }
+        return currencies;
+    }
+
+}

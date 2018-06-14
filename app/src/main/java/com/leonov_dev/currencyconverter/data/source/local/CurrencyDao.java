@@ -6,22 +6,20 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.leonov_dev.currencyconverter.data.CurrenciesJson;
-import com.leonov_dev.currencyconverter.data.Currency;
+import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 
 import java.util.List;
 
 @Dao
 public interface CurrencyDao {
 
-    @Query("SELECT * FROM currencies_json")
-    List<CurrenciesJson> loadCurrencyJsons();
+    @Query("SELECT * FROM currencies")
+    List<CurrencyReplacement> loadCurrencies();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertCurrency(Currency currency);
+    void insertCurrency(CurrencyReplacement currency);
 
     @Update
-    void updateCurrency(Currency update);
-
+    void updateCurrency(CurrencyReplacement update);
 
 }
