@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.leonov_dev.currencyconverter.data.Currency;
 import com.leonov_dev.currencyconverter.data.CurrencyContract;
 import com.leonov_dev.currencyconverter.data.CurrencyDbHelper;
+import com.leonov_dev.currencyconverter.databinding.FragmentConverterBinding;
 
 import org.json.JSONObject;
 
@@ -69,7 +70,7 @@ public class ConverterFragment extends Fragment {
     //-----------------CHANGES-------------------
     private StockConverterViewModel mStockViewModel;
 
-    private ConverterFragmentBinding mConverterBinding;
+    private FragmentConverterBinding mConverterBinding;
 
 
     @Override
@@ -109,7 +110,7 @@ public class ConverterFragment extends Fragment {
                             mButtonEtOthers.setVisibility(View.GONE);
                             return;
                         }
-                        parseJson(convertOthersCurrencyNameSpinner.getSelectedItem().toString(), OTHERS_FLAG);
+//                        parseJson(convertOthersCurrencyNameSpinner.getSelectedItem().toString(), OTHERS_FLAG);
                         double bufDouble =
                                 calculateConversion(Double.parseDouble(convertOthersET.getText().toString()), OTHERS_FLAG);
                         convertMyrET.setText(String.valueOf(formatPrice(bufDouble)));
@@ -145,7 +146,7 @@ public class ConverterFragment extends Fragment {
                             mButtonEtMYR.setVisibility(View.GONE);
                             return;
                         }
-                        parseJson(convertOthersCurrencyNameSpinner.getSelectedItem().toString(), MYR_FLAG);
+//                        parseJson(convertOthersCurrencyNameSpinner.getSelectedItem().toString(), MYR_FLAG);
                         double bufDouble =
                                 calculateConversion(Double.parseDouble(convertMyrET.getText().toString()), MYR_FLAG);
                         convertOthersET.setText(String.valueOf(formatPrice(bufDouble)));
@@ -170,7 +171,7 @@ public class ConverterFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try{
                     String curAcrName = convertOthersCurrencyNameSpinner.getSelectedItem().toString();
-                    parseJson(curAcrName, OTHERS_FLAG);
+//                    parseJson(curAcrName, OTHERS_FLAG);
                     setPriceNotes(curAcrName);
                     double bufDouble =
                             calculateConversion(Double.parseDouble(convertOthersET.getText().toString()), OTHERS_FLAG);
@@ -211,8 +212,15 @@ public class ConverterFragment extends Fragment {
             }
         });
 
+        mConverterBinding = FragmentConverterBinding.inflate(inflater, container, false);
 
-        return rootView;
+        mStockViewModel = MainActivity.obtainViewModel(getActivity());
+
+        mConverterBinding.setViewmodel(mStockViewModel);
+
+        setHasOptionsMenu(true);
+
+        return mConverterBinding.getRoot();
     }
 
 //    @Override

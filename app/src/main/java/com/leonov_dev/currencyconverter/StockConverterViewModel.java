@@ -4,15 +4,24 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.databinding.Observable;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableDouble;
+import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 
 import com.leonov_dev.currencyconverter.data.CurrencyData;
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
@@ -21,12 +30,15 @@ import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository;
 import com.leonov_dev.currencyconverter.data.source.remote.PostModel;
 import com.leonov_dev.currencyconverter.utils.JsonParserUtils;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class StockConverterViewModel extends AndroidViewModel {
 
-    private final Context mContext; // To avoid leaks, this must be an Application Context.
+    private final Context mContext; // AppContext
 
     private final CurrenciesRepository mCurrenciesRepository;
 
@@ -36,12 +48,23 @@ public class StockConverterViewModel extends AndroidViewModel {
 
     public final ObservableBoolean empty = new ObservableBoolean(true);
 
+    //Converter activity
+    public ObservableField<String> myrAmount = new ObservableField<>();
+    public ObservableField<String> otherAmount = new ObservableField<>();
+    public ObservableField<CurrencyReplacement> currentCurrency = new ObservableField<>();
+    private ObservableArrayList<String> mListCurrencies = new ObservableArrayList<>();
+    private HashMap<String, CurrencyReplacement> mCurrencyMap = new HashMap<>();
+
+    private boolean isMyrFocused = false;
+    private boolean isOtherFocused = false;
+    private final int MYR_FLAG = 10;
+    private final int OTHERS_FLAG = 20;
+
     public StockConverterViewModel(@NonNull Application application,
                                    @NonNull CurrenciesRepository repository) {
         super(application);
         mContext = application.getApplicationContext();
         mCurrenciesRepository = repository;
-
     }
 
     public void loadRemoteData(){
@@ -49,7 +72,6 @@ public class StockConverterViewModel extends AndroidViewModel {
                 mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
         if ((networkInfo != null && networkInfo.isConnected())) {
             mCurrenciesRepository.downloadCurrenciesJson(new CurrenciesJsonDataSoruce.LoadCurrenciesCallback() {
                 @Override
@@ -75,23 +97,17 @@ public class StockConverterViewModel extends AndroidViewModel {
         } catch (Exception e){
             Log.e(LOG_TAG, "Error Parsing Json " + e);
         }
-        for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
-            Log.e("PARSED", "NAME: " + currencies.get(i).mCurrencyName + "\n" + "PRICE: " + currencies.get(i).mStockPrice);
-        }
         mCurrenciesRepository.insertCurrencies(currencies);
         loadLocalData();
     }
 
     private void loadLocalData(){
             mCurrenciesRepository.loadCurrencyReplacements(new CurrenciesJsonDataSoruce.LoadLocalCurrenciesCallback() {
-
                 @Override
                 public void onCurrencyLoaded(List<CurrencyReplacement> currencies) {
+                    //Store currencies refer from Converter
+                    mapCurrencies(currencies);
                     List<CurrencyReplacement> filteredCurrencies = new ArrayList<>();
-                    Log.e(LOG_TAG, ">>>>>>>>>>>>> UNFILTERED");
-                    for (CurrencyReplacement cur : currencies){
-                        Log.e(LOG_TAG, " > " + cur.mCurrencyName + " " + cur.mStockPrice);
-                    }
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
                     for (CurrencyReplacement currency : currencies){
                         if (sharedPreferences.getBoolean(
@@ -100,14 +116,10 @@ public class StockConverterViewModel extends AndroidViewModel {
                             filteredCurrencies.add(currency);
                         }
                     }
-                    Log.e(LOG_TAG, ">>>>>>>>>>>>>>>> FILTERED");
-                    for (CurrencyReplacement cur : filteredCurrencies){
-                        Log.e(LOG_TAG, " > " + cur.mCurrencyName + "\n > Price: " + cur.mStockPrice);
-                    }
                     items.clear();
                     items.addAll(filteredCurrencies);
                     empty.set(items.isEmpty());
-                    //Put in list or to binder or what ever laaa
+                    currentCurrency.set(items.get(0));
                 }
 
                 @Override
@@ -115,8 +127,105 @@ public class StockConverterViewModel extends AndroidViewModel {
 
                 }
             });
-
     }
 
+    private void mapCurrencies(List<CurrencyReplacement> currencies){
+        if (currencies != null) {
+            ArrayList<String> bufCurrencies = new ArrayList<>();
+            for (int i = 0; i < currencies.size(); i++) {
+                bufCurrencies.add(currencies.get(i).mCurrencyName);
+                mCurrencyMap.put(currencies.get(i).mCurrencyName, currencies.get(i));
+            }
+            mListCurrencies.addAll(bufCurrencies);
+        }
+    }
+
+    private boolean isDouble(String str) {
+        try {
+            double buf = Double.parseDouble(str);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    //Pass the price from TextView Edited
+    private String calculateConversion(String amount, int MyrOrOthers){
+        //Currency may not be loaded yet
+        try {
+            double amountFrom = Double.parseDouble(amount);
+            int quantity = currentCurrency.get().mQuantity;
+            double price = Double.parseDouble(formatPrice(currentCurrency.get().mStockPrice));
+            Log.e(LOG_TAG, "Price : " + price + " Quantity " + quantity);
+            if (MyrOrOthers == OTHERS_FLAG) {
+                return formatPrice(price / quantity * amountFrom);
+            } else {
+                return formatPrice(quantity / price * amountFrom);
+            }
+        } catch (Exception e){
+            Log.e(LOG_TAG, "Error converting " + e);
+        }
+        return "";
+    }
+
+    public String formatPrice(double price){
+        Log.e(LOG_TAG, ">>>>> Before formatting : " + price);
+        DecimalFormat formatter = new DecimalFormat("0.00");
+        DecimalFormatSymbols symbols = formatter.getDecimalFormatSymbols();
+        symbols.setDecimalSeparator('.');
+        return formatter.format(Math.floor(price * 100) / 100);
+    }
+
+    public void onMyrTextChanged(CharSequence s, int start, int before, int count){
+        if (isMyrFocused) {
+            myrAmount.set(s.toString());
+            String amount = myrAmount.get();
+            if (isDouble(amount)) {
+                otherAmount.set(String.valueOf(calculateConversion(amount, MYR_FLAG)));
+            } else {
+                otherAmount.set("");
+            }
+        }
+    }
+
+    public void onOtherTextChanged(CharSequence s, int start, int before, int count){
+        if (isOtherFocused) {
+            otherAmount.set(s.toString());
+            String amount = otherAmount.get();
+            if (isDouble(amount)) {
+                myrAmount.set(String.valueOf(calculateConversion(amount, OTHERS_FLAG)));
+            } else {
+                myrAmount.set("");
+            }
+        }
+    }
+
+    @BindingAdapter("app:onFocusChange")
+    public static void onFocusChange(EditText text, final View.OnFocusChangeListener listener) {
+        text.setOnFocusChangeListener(listener);
+    }
+
+    public View.OnFocusChangeListener getOnFocusChangeListener() {
+        return new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean isFocused) {
+                if (view.getId() == R.id.convert_MYR_amount){
+                    isMyrFocused = true;
+                    isOtherFocused = false;
+                } else if (view.getId() == R.id.convert_others_currency_amount) {
+                    isOtherFocused = true;
+                    isMyrFocused = false;
+                }
+            }
+        };
+    }
+
+    public void onCurrencyItemSelected(AdapterView<?> parent, View view, int position, long id) {
+         String currencyAbriviation = parent.getItemAtPosition(position).toString();
+         if (mCurrencyMap.containsKey(currencyAbriviation)){
+             currentCurrency.set(mCurrencyMap.get(currencyAbriviation));
+         }
+
+    }
 
 }

@@ -74,7 +74,7 @@
                 android:layout_gravity="end"
                 android:textAllCaps="true"
                 android:fontFamily="sans-serif-medium"
-                android:text="@{@string/for_quantity + String.valueOf(currency.quantity)}"
+                android:text='@{@string/for_quantity + " "+ String.valueOf(currency.quantity)}'
                 android:textSize="12sp"/>
 
         </LinearLayout>

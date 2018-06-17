@@ -89,5 +89,6 @@
     <string name="pref_inr_label">Show INR rate</string>
     <string name="pref_thb_label">Show THB rate</string>
     <string name="pref_krw_label">Show KRW rate</string>
+    <string name="default_price_hint">00.00</string>
 
 </resources>

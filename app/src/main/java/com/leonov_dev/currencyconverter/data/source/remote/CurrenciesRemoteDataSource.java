@@ -68,10 +68,20 @@ public class CurrenciesRemoteDataSource implements CurrenciesJsonDataSoruce.Remo
                     callback.onNothingLoaded();
                 }
 
-                PostModel parsedResponse = (PostModel) response.body();
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                String responseJson = gson.toJson(parsedResponse);
-                callback.onCurrencyLoaded(responseJson);
+                PostModel parsedResponse = null;
+                try {
+                    parsedResponse = (PostModel) response.body();
+                }catch (Exception e){
+                    Log.e(LOG_TAG, "Error parsing response " + e);
+                }
+                if (parsedResponse != null) {
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    String responseJson = gson.toJson(parsedResponse);
+                    callback.onCurrencyLoaded(responseJson);
+                } else {
+                    //TODO Make it load from local source
+                    callback.onNothingLoaded();
+                }
             }
         };
         mAppExecutors.networkIO().execute(runnable);

@@ -25,9 +25,4 @@ public class CurrencyListBinding {
         view.setImageResource(resId);
     }
 
-//    @BindingConversion
-//    public static String convertPrice(Double price) {
-//        return price.toString();
-//    }
-
 }

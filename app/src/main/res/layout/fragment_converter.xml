@@ -1,20 +1,26 @@
-<layout>
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        
 
+        <import type="android.widget.EditText"/>
 
+        <variable
+            name="viewmodel"
+            type="com.leonov_dev.currencyconverter.StockConverterViewModel"/>
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
         tools:context="com.leonov_dev.currencyconverter.ConverterFragment">
-    
-    
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +32,8 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:id="@+id/convert_others_flag"
-                android:background="@drawable/flag_circle_big"/>
+                android:background="@drawable/flag_circle_big"
+                app:flagLogo="@{viewmodel.currentCurrency.currencyFlag}"/>
     
             <Spinner
                 android:layout_width="0dp"
@@ -34,8 +41,8 @@
                 android:layout_weight="1"
                 android:entries="@array/list_of_currencies"
                 android:id="@+id/convert_others_acronym_spinner"
-                android:textAlignment="center">
-            </Spinner>
+                android:textAlignment="center"
+                android:onItemSelected="@{viewmodel::onCurrencyItemSelected}" />
     
             <RelativeLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,14 +55,15 @@
                     android:id="@+id/convert_others_currency_amount"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="00.00"
+                    android:hint="@string/default_price_hint"
                     android:textAlignment="center"
                     android:layout_centerVertical="true"
                     android:inputType="numberDecimal"
-                    android:text=""
-                    android:maxLines="1">
-    
-                </EditText>
+                    android:onTextChanged="@{viewmodel::onOtherTextChanged}"
+                    android:text="@={viewmodel.otherAmount}"
+                    app:onFocusChange="@{viewmodel.OnFocusChangeListener}"
+                    android:maxLines="1"/>
+
     
                 <ImageView
                     android:id="@+id/convert_others_ET_Button"
@@ -84,7 +92,7 @@
                 android:layout_width="72dp"
                 android:layout_height="72dp"
                 android:id="@+id/convert_MYR_flag"
-                android:background="@drawable/flag_circle_big"/>
+                android:background="@drawable/flag_malaysia"/>
     
             <TextView
                 android:layout_width="0dp"
@@ -105,14 +113,14 @@
                     android:id="@+id/convert_MYR_amount"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="00.00"
+                    android:hint="@string/default_price_hint"
                     android:textAlignment="center"
                     android:layout_centerVertical="true"
                     android:inputType="numberDecimal"
-                    android:text=""
-                    android:maxLines="1">
-    
-                </EditText>
+                    android:onTextChanged="@{ viewmodel::onMyrTextChanged}"
+                    android:text="@={viewmodel.myrAmount}"
+                    app:onFocusChange="@{viewmodel.OnFocusChangeListener}"
+                    android:maxLines="1"/>
     
                 <ImageView
                     android:id="@+id/convert_MYR_ET_Button"

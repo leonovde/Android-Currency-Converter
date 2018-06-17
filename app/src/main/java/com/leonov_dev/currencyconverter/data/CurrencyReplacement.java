@@ -28,7 +28,6 @@ public class CurrencyReplacement {
     public double mStockPrice;
 
     public CurrencyReplacement(){
-
     }
 
     //TODO OMG WHAT IS THIS I WAS STRUGGLING HAVING ONE SINGLE CONSTRUCTOR...
