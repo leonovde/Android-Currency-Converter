@@ -19,10 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.leonov_dev.currencyconverter.preferences.CurrencySettingsActivity;
-import com.leonov_dev.currencyconverter.preferences.CurrencySettingsFragment;
 
-import java.util.prefs.PreferenceChangeListener;
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
