@@ -2,12 +2,12 @@ package com.leonov_dev.currencyconverter;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
-import android.arch.persistence.room.Dao;
-import android.support.annotation.NonNull;
-import android.support.annotation.VisibleForTesting;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.room.Dao;
+import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository;
 import com.leonov_dev.currencyconverter.data.source.local.CurrenciesLocalDataSource;

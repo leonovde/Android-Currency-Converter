@@ -1,8 +1,8 @@
 package com.leonov_dev.currencyconverter.preferences;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.preference.PreferenceFragmentCompat;
+import androidx.appcompat.app.ActionBar;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.leonov_dev.currencyconverter.R;
 

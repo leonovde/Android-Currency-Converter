@@ -1,33 +1,30 @@
 package com.leonov_dev.currencyconverter;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
+import androidx.lifecycle.AndroidViewModel;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
-import android.databinding.Observable;
-import android.databinding.ObservableArrayList;
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableDouble;
-import android.databinding.ObservableField;
-import android.databinding.ObservableList;
+import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableDouble;
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableList;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
+import androidx.annotation.NonNull;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
-import com.leonov_dev.currencyconverter.data.CurrencyData;
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 import com.leonov_dev.currencyconverter.data.source.CurrenciesJsonDataSoruce;
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository;
-import com.leonov_dev.currencyconverter.data.source.remote.PostModel;
 import com.leonov_dev.currencyconverter.utils.JsonParserUtils;
 
 import java.text.DecimalFormat;

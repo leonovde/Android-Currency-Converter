@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.leonov_dev.currencyconverter.preferences.CurrencySettingsActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/settings_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:titleTextColor="#ffffff"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/activity_settings"

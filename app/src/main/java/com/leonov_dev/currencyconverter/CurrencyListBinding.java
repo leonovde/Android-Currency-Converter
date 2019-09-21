@@ -1,7 +1,7 @@
 package com.leonov_dev.currencyconverter;
 
-import android.databinding.BindingAdapter;
-import android.databinding.BindingConversion;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.BindingConversion;
 import android.widget.ImageView;
 import android.widget.ListView;
 

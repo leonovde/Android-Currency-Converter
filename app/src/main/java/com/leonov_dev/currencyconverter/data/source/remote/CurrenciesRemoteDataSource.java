@@ -1,15 +1,13 @@
 package com.leonov_dev.currencyconverter.data.source.remote;
 
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 import com.leonov_dev.currencyconverter.data.source.CurrenciesJsonDataSoruce;
 import com.leonov_dev.currencyconverter.data.source.local.CurrenciesLocalDataSource;
-import com.leonov_dev.currencyconverter.data.source.local.CurrencyDao;
 import com.leonov_dev.currencyconverter.utils.AppExecutors;
 
 import retrofit2.Response;

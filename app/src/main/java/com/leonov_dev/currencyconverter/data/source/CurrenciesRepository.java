@@ -1,11 +1,10 @@
 package com.leonov_dev.currencyconverter.data.source;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 import com.leonov_dev.currencyconverter.data.source.local.CurrenciesLocalDataSource;
 import com.leonov_dev.currencyconverter.data.source.remote.CurrenciesRemoteDataSource;
-import com.leonov_dev.currencyconverter.data.source.remote.PostModel;
 
 import java.util.List;
 

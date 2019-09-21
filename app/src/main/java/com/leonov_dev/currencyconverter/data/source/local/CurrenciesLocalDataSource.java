@@ -1,6 +1,6 @@
 package com.leonov_dev.currencyconverter.data.source.local;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
