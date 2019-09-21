@@ -11,7 +11,7 @@
 
         <variable
             name="viewmodel"
-            type="com.leonov_dev.currencyconverter.StockConverterViewModel"/>
+            type="com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel"/>
     </data>
 
     <LinearLayout

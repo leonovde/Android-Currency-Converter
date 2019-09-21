@@ -1,4 +1,4 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.ui.home.stock;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import com.leonov_dev.currencyconverter.R;
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 import com.leonov_dev.currencyconverter.databinding.ActivityStockBinding;
+import com.leonov_dev.currencyconverter.ui.home.MainActivity;
+import com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel;
 
 
 import java.util.ArrayList;

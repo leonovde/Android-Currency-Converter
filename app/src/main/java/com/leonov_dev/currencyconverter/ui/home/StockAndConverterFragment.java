@@ -1,8 +1,11 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.ui.home;
 
 
 import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
+import com.leonov_dev.currencyconverter.ui.home.stock.CategoryAdapter;
+import com.leonov_dev.currencyconverter.R;
+
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;

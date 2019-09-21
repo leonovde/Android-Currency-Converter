@@ -11,7 +11,7 @@
 
         <variable
             name="viewmodel"
-            type="com.leonov_dev.currencyconverter.StockConverterViewModel"/>
+            type="com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel"/>
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:context="com.leonov_dev.currencyconverter.ConverterFragment">
+        tools:context="com.leonov_dev.currencyconverter.ui.home.converter.ConverterFragment">
 
         <LinearLayout
             android:layout_width="match_parent"

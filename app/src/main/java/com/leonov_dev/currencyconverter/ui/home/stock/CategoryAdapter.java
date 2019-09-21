@@ -1,9 +1,12 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.ui.home.stock;
 
 import android.content.Context;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.leonov_dev.currencyconverter.R;
+import com.leonov_dev.currencyconverter.ui.home.converter.ConverterFragment;
 
 public class CategoryAdapter extends FragmentPagerAdapter {
 

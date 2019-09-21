@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.room.Dao;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
@@ -13,6 +11,7 @@ import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository;
 import com.leonov_dev.currencyconverter.data.source.local.CurrenciesLocalDataSource;
 import com.leonov_dev.currencyconverter.data.source.local.CurrencyDatabase;
 import com.leonov_dev.currencyconverter.data.source.remote.CurrenciesRemoteDataSource;
+import com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel;
 import com.leonov_dev.currencyconverter.utils.AppExecutors;
 
 public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {

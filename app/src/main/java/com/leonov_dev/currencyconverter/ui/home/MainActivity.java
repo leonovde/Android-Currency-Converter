@@ -1,4 +1,4 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.ui.home;
 
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -18,13 +18,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.leonov_dev.currencyconverter.ui.about.AboutFragment;
+import com.leonov_dev.currencyconverter.R;
+import com.leonov_dev.currencyconverter.ViewModelFactory;
 import com.leonov_dev.currencyconverter.preferences.CurrencySettingsActivity;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    //TODO get rid of this cludge
-    public static boolean isFirstRun = true;
 
     private final String LOG_TAG = this.getClass().getSimpleName();
 

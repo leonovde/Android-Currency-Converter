@@ -1,15 +1,13 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.ui.home;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.databinding.Bindable;
+
 import androidx.databinding.BindingAdapter;
-import androidx.databinding.Observable;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableDouble;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import android.net.ConnectivityManager;
@@ -22,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
+import com.leonov_dev.currencyconverter.R;
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
 import com.leonov_dev.currencyconverter.data.source.CurrenciesJsonDataSoruce;
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository;

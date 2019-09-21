@@ -1,4 +1,4 @@
-package com.leonov_dev.currencyconverter;
+package com.leonov_dev.currencyconverter.ui.home.converter;
 
 
 import android.os.Bundle;
@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel;
 import com.leonov_dev.currencyconverter.databinding.FragmentConverterBinding;
+import com.leonov_dev.currencyconverter.ui.home.MainActivity;
 
 import org.json.JSONObject;
 
