@@ -1,28 +1,22 @@
-package com.leonov_dev.currencyconverter.ui.home.stock;
+package com.leonov_dev.currencyconverter.ui.home.stock
 
-import androidx.databinding.BindingAdapter;
+import androidx.databinding.BindingAdapter
 
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.ImageView
+import android.widget.ListView
 
-import com.leonov_dev.currencyconverter.data.CurrencyReplacement;
+import com.leonov_dev.currencyconverter.data.CurrencyReplacement
 
-import java.util.List;
-
-public class CurrencyListBinding {
+object CurrencyListBinding {
 
     @BindingAdapter("app:items")
-    public static void setItems(ListView listView, List<CurrencyReplacement> items) {
-        CurrencyReplacementAdapter adapter = (CurrencyReplacementAdapter) listView.getAdapter();
-        if (adapter != null)
-        {
-            adapter.replaceData(items);
-        }
+    fun setItems(listView: ListView, items: List<CurrencyReplacement>) {
+        val adapter = listView.adapter as CurrencyReplacementAdapter
+        adapter?.replaceData(items)
     }
 
     @BindingAdapter("app:flagLogo")
-    public static void setFlagLogo(ImageView view, int resId){
-        view.setImageResource(resId);
+    fun setFlagLogo(view: ImageView, resId: Int) {
+        view.setImageResource(resId)
     }
-
 }
