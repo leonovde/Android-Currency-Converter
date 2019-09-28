@@ -5,7 +5,6 @@ import com.leonov_dev.currencyconverter.ui.home.stock.CategoryAdapter
 import com.leonov_dev.currencyconverter.R
 
 import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -11,7 +11,7 @@ object CurrencyListBinding {
 
     @BindingAdapter("app:items")
     fun setItems(listView: ListView, items: List<CurrencyReplacement>) {
-        val adapter = listView.adapter as CurrencyReplacementAdapter
+        val adapter = listView.adapter as CurrencyReplacementAdapter?
         adapter?.replaceData(items)
     }
 
