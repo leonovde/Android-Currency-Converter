@@ -29,8 +29,6 @@ public class CurrencyReplacement {
     public CurrencyReplacement(){
     }
 
-    //TODO OMG WHAT IS THIS I WAS STRUGGLING HAVING ONE SINGLE CONSTRUCTOR...
-    //TODO when you insert using dao, default constructor is used on object
     @Ignore
     public CurrencyReplacement(@NonNull String currencyName, @NonNull double stockPrice){
         mCurrencyName = currencyName;

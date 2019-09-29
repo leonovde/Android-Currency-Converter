@@ -20,22 +20,22 @@ import java.util.ArrayList
 
 class StockFragment : Fragment() {
 
-    private var mStockViewModel: StockConverterViewModel? = null
+    private lateinit var stockViewModel: StockConverterViewModel
     private lateinit var mStockBinding: ActivityStockBinding
     private var mCurrencyAdapter: CurrencyReplacementAdapter? = null
-
-    override fun onResume() {
-        super.onResume()
-        mStockViewModel!!.loadRemoteData()
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         mStockBinding = ActivityStockBinding.inflate(inflater, container, false)
-        mStockViewModel = MainActivity.obtainViewModel(activity!!)
-        mStockBinding.viewmodel = mStockViewModel
+        stockViewModel = MainActivity.obtainViewModel(activity!!)
+        mStockBinding.viewmodel = stockViewModel
         setHasOptionsMenu(true)
         return mStockBinding.getRoot()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        stockViewModel.loadRemoteData()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -47,7 +47,7 @@ class StockFragment : Fragment() {
         val listView = mStockBinding.list
         mCurrencyAdapter = CurrencyReplacementAdapter(
             ArrayList(0),
-            mStockViewModel
+            stockViewModel
         )
         listView.adapter = mCurrencyAdapter
     }

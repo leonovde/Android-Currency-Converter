@@ -1,8 +1,5 @@
 package com.leonov_dev.currencyconverter.utils;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.leonov_dev.currencyconverter.data.CurrencyData;
@@ -20,9 +17,9 @@ public class JsonParserUtils {
         List<CurrencyReplacement> currencies = new ArrayList<>();
         JSONObject currenciesJSON = new JSONObject(jsonString);
         double priceOnStock;
-        for (int i = 0; i < CurrencyData.curAcronyms.length; i++) {
-            priceOnStock = currenciesJSON.getDouble(CurrencyData.curAcronyms[i]);
-            currencies.add(new CurrencyReplacement(CurrencyData.curAcronyms[i], priceOnStock));
+        for (int i = 0; i < CurrencyData.INSTANCE.getCurAcronyms().length; i++) {
+            priceOnStock = currenciesJSON.getDouble(CurrencyData.INSTANCE.getCurAcronyms()[i]);
+            currencies.add(new CurrencyReplacement(CurrencyData.INSTANCE.getCurAcronyms()[i], priceOnStock));
             Log.e("TAG", "NAME: " + currencies.get(i).mCurrencyName + "\n" + "PRICE: " + currencies.get(i).mStockPrice);
         }
         return currencies;

@@ -71,7 +71,6 @@ public class CurrenciesLocalDataSource implements CurrenciesJsonDataSoruce.Local
             @Override
             public void run() {
                 for (CurrencyReplacement currency : currencies) {
-                    Log.e("2TAG", "NAME: " + currency.mCurrencyName + "\n" + "PRICE: " + currency.mStockPrice);
                     mCurrencyDao.insertCurrency(currency);
                 }
             }
