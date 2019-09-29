@@ -13,10 +13,13 @@ import kotlinx.android.synthetic.main.fragment_stock_and_converter.*
 class StockAndConverterFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_stock_and_converter, container, false)
+        return inflater.inflate(R.layout.fragment_stock_and_converter, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val adapter = CategoryAdapter(requireContext(), childFragmentManager)
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
-        return rootView
     }
 }
