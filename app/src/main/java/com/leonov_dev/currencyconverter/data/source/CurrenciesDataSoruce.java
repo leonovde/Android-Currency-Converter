@@ -5,7 +5,7 @@ import com.leonov_dev.currencyconverter.data.source.remote.PostModel;
 
 import java.util.List;
 
-public interface CurrenciesJsonDataSoruce {
+public interface CurrenciesDataSoruce {
 
     interface LoadCurrenciesCallback {
 

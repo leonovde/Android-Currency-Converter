@@ -32,7 +32,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
                             CurrencyDatabase.getInstance(application.getApplicationContext());
 
                     CurrenciesLocalDataSource localDataSource =
-                            CurrenciesLocalDataSource.getInstance(
+                            CurrenciesLocalDataSource.Companion.getInstance(
                                     new AppExecutors(),
                                     database.taskDao());
 

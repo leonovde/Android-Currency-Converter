@@ -1,12 +1,11 @@
 package com.leonov_dev.currencyconverter.data.source.remote;
 
 
-import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.leonov_dev.currencyconverter.data.source.CurrenciesJsonDataSoruce;
+import com.leonov_dev.currencyconverter.data.source.CurrenciesDataSoruce;
 import com.leonov_dev.currencyconverter.data.source.local.CurrenciesLocalDataSource;
 import com.leonov_dev.currencyconverter.utils.AppExecutors;
 
@@ -14,7 +13,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CurrenciesRemoteDataSource implements CurrenciesJsonDataSoruce.RemoteSource {
+public class CurrenciesRemoteDataSource implements CurrenciesDataSoruce.RemoteSource {
 
     private final String LOG_TAG = CurrenciesRemoteDataSource.class.getSimpleName();
 
@@ -53,7 +52,7 @@ public class CurrenciesRemoteDataSource implements CurrenciesJsonDataSoruce.Remo
     }
 
     @Override
-    public void downloadCurrenciesJson(final CurrenciesJsonDataSoruce.LoadCurrenciesCallback callback) {
+    public void downloadCurrenciesJson(final CurrenciesDataSoruce.LoadCurrenciesCallback callback) {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {

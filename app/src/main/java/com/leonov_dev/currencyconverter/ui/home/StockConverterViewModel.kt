@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import android.content.Context
 
-import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
@@ -15,11 +14,10 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.EditText
 
 import com.leonov_dev.currencyconverter.R
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement
-import com.leonov_dev.currencyconverter.data.source.CurrenciesJsonDataSoruce
+import com.leonov_dev.currencyconverter.data.source.CurrenciesDataSoruce
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository
 import com.leonov_dev.currencyconverter.utils.JsonParserUtils
 
@@ -70,7 +68,7 @@ class StockConverterViewModel(application: Application,
 
         val networkInfo = connectivityManager.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
-            mCurrenciesRepository.downloadCurrenciesJson(object : CurrenciesJsonDataSoruce.LoadCurrenciesCallback {
+            mCurrenciesRepository.downloadCurrenciesJson(object : CurrenciesDataSoruce.LoadCurrenciesCallback {
                 override fun onCurrencyLoaded(jsonResponse: String) {
                     saveToDb(jsonResponse)
                 }
@@ -98,7 +96,7 @@ class StockConverterViewModel(application: Application,
     }
 
     private fun loadLocalData() {
-        mCurrenciesRepository.loadCurrencyReplacements(object : CurrenciesJsonDataSoruce.LoadLocalCurrenciesCallback {
+        mCurrenciesRepository.loadCurrencyReplacements(object : CurrenciesDataSoruce.LoadLocalCurrenciesCallback {
             override fun onCurrencyLoaded(currencies: List<CurrencyReplacement>) {
                 //Store currencies refer from Converter
                 mapCurrencies(currencies)

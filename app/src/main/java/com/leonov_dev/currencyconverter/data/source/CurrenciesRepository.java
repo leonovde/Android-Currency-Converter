@@ -8,7 +8,7 @@ import com.leonov_dev.currencyconverter.data.source.remote.CurrenciesRemoteDataS
 
 import java.util.List;
 
-public class CurrenciesRepository implements CurrenciesJsonDataSoruce.LocalSource, CurrenciesJsonDataSoruce.RemoteSource{
+public class CurrenciesRepository implements CurrenciesDataSoruce.LocalSource, CurrenciesDataSoruce.RemoteSource{
 
     private final CurrenciesLocalDataSource mLocalDataSource;
 
@@ -34,8 +34,8 @@ public class CurrenciesRepository implements CurrenciesJsonDataSoruce.LocalSourc
 
 
     @Override
-    public void loadCurrencyReplacements(final CurrenciesJsonDataSoruce.LoadLocalCurrenciesCallback callback) {
-        mLocalDataSource.loadCurrencyReplacements(new CurrenciesJsonDataSoruce.LoadLocalCurrenciesCallback() {
+    public void loadCurrencyReplacements(final CurrenciesDataSoruce.LoadLocalCurrenciesCallback callback) {
+        mLocalDataSource.loadCurrencyReplacements(new CurrenciesDataSoruce.LoadLocalCurrenciesCallback() {
             @Override
             public void onCurrencyLoaded(List<CurrencyReplacement> currencies) {
                 callback.onCurrencyLoaded(currencies);
@@ -68,8 +68,8 @@ public class CurrenciesRepository implements CurrenciesJsonDataSoruce.LocalSourc
 
 
     @Override
-    public void downloadCurrenciesJson(final CurrenciesJsonDataSoruce.LoadCurrenciesCallback callback) {
-        mRemoteDataSource.downloadCurrenciesJson(new CurrenciesJsonDataSoruce.LoadCurrenciesCallback() {
+    public void downloadCurrenciesJson(final CurrenciesDataSoruce.LoadCurrenciesCallback callback) {
+        mRemoteDataSource.downloadCurrenciesJson(new CurrenciesDataSoruce.LoadCurrenciesCallback() {
             @Override
             public void onCurrencyLoaded(String jsonResponse) {
                 callback.onCurrencyLoaded(jsonResponse);
