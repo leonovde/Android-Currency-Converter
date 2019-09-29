@@ -200,13 +200,4 @@ class StockConverterViewModel(application: Application,
         }
 
     }
-
-    companion object {
-
-        @BindingAdapter("app:onFocusChange")
-        fun onFocusChange(text: EditText, listener: View.OnFocusChangeListener) {
-            text.onFocusChangeListener = listener
-        }
-    }
-
 }
