@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository;
-import com.leonov_dev.currencyconverter.data.source.local.CurrenciesLocalDataSource;
+import com.leonov_dev.currencyconverter.data.source.local.LocalDataSource;
 import com.leonov_dev.currencyconverter.data.source.local.CurrencyDatabase;
-import com.leonov_dev.currencyconverter.data.source.remote.CurrenciesRemoteDataSource;
+import com.leonov_dev.currencyconverter.data.source.remote.RemoteDataSource;
 import com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel;
 import com.leonov_dev.currencyconverter.utils.AppExecutors;
 
@@ -31,18 +31,18 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
                     CurrencyDatabase database =
                             CurrencyDatabase.getInstance(application.getApplicationContext());
 
-                    CurrenciesLocalDataSource localDataSource =
-                            CurrenciesLocalDataSource.Companion.getInstance(
-                                    new AppExecutors(),
-                                    database.taskDao());
+//                    LocalDataSource localDataSource =
+//                            LocalDataSource(
+//                                    new AppExecutors(),
+//                                    database.taskDao());
+//
+//                    RemoteDataSource remoteDataSource =
+//                            RemoteDataSource.getInstance(new AppExecutors());
+//
+//                    CurrenciesRepository repository =
+//                            CurrenciesRepository.getInstance(localDataSource, remoteDataSource);
 
-                    CurrenciesRemoteDataSource remoteDataSource =
-                            CurrenciesRemoteDataSource.Companion.getInstance(new AppExecutors());
-
-                    CurrenciesRepository repository =
-                            CurrenciesRepository.getInstance(localDataSource, remoteDataSource);
-
-                    INSTANCE = new ViewModelFactory(application,repository);
+//                    INSTANCE = new ViewModelFactory(application,repository);
                 }
             }
         }

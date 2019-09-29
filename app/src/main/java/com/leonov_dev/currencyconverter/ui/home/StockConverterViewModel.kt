@@ -17,7 +17,7 @@ import android.widget.AdapterView
 
 import com.leonov_dev.currencyconverter.R
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement
-import com.leonov_dev.currencyconverter.data.source.CurrenciesDataSoruce
+import com.leonov_dev.currencyconverter.data.source.CurrenciesDataSource
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository
 import com.leonov_dev.currencyconverter.utils.JsonParserUtils
 
@@ -68,16 +68,16 @@ class StockConverterViewModel(application: Application,
 
         val networkInfo = connectivityManager.activeNetworkInfo
         if (networkInfo != null && networkInfo.isConnected) {
-            mCurrenciesRepository.downloadCurrenciesJson(object : CurrenciesDataSoruce.LoadCurrenciesCallback {
-                override fun onCurrencyLoaded(jsonResponse: String) {
-                    saveToDb(jsonResponse)
-                }
-
-                override fun onNothingLoaded() {
-                    loadLocalData()
-                }
-
-            })
+//            mCurrenciesRepository.downloadCurrenciesJson(object : CurrenciesDataSource.LoadCurrenciesCallback {
+//                override fun onCurrencyLoaded(jsonResponse: String) {
+//                    saveToDb(jsonResponse)
+//                }
+//
+//                override fun onNothingLoaded() {
+//                    loadLocalData()
+//                }
+//
+//            })
         } else {
             loadLocalData()
         }
@@ -91,34 +91,34 @@ class StockConverterViewModel(application: Application,
             Log.e(LOG_TAG, "Error Parsing Json $e")
         }
 
-        mCurrenciesRepository.insertCurrencies(currencies)
+//        mCurrenciesRepository.insertCurrencies(currencies)
         loadLocalData()
     }
 
     private fun loadLocalData() {
-        mCurrenciesRepository.loadCurrencyReplacements(object : CurrenciesDataSoruce.LoadLocalCurrenciesCallback {
-            override fun onCurrencyLoaded(currencies: List<CurrencyReplacement>) {
-                //Store currencies refer from Converter
-                mapCurrencies(currencies)
-                val filteredCurrencies = ArrayList<CurrencyReplacement>()
-                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
-                for (currency in currencies) {
-                    if (sharedPreferences.getBoolean(
-                            currency.currencyName.toLowerCase(),
-                            true)) {
-                        filteredCurrencies.add(currency)
-                    }
-                }
-                items.clear()
-                items.addAll(filteredCurrencies)
-                empty.set(items.isEmpty())
-                currentCurrency.set(items[0])
-            }
-
-            override fun onNothingLoaded() {
-
-            }
-        })
+//        mCurrenciesRepository.loadCurrencyReplacements(object : CurrenciesDataSource.LoadLocalCurrenciesCallback {
+//            override fun onCurrencyLoaded(currencies: List<CurrencyReplacement>) {
+//                //Store currencies refer from Converter
+//                mapCurrencies(currencies)
+//                val filteredCurrencies = ArrayList<CurrencyReplacement>()
+//                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
+//                for (currency in currencies) {
+//                    if (sharedPreferences.getBoolean(
+//                            currency.currencyName.toLowerCase(),
+//                            true)) {
+//                        filteredCurrencies.add(currency)
+//                    }
+//                }
+//                items.clear()
+//                items.addAll(filteredCurrencies)
+//                empty.set(items.isEmpty())
+//                currentCurrency.set(items[0])
+//            }
+//
+//            override fun onNothingLoaded() {
+//
+//            }
+//        })
     }
 
     private fun mapCurrencies(currencies: List<CurrencyReplacement>?) {

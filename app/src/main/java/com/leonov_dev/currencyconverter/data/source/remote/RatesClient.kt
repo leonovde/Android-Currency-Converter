@@ -5,7 +5,7 @@ import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface Client {
+interface RatesClient {
 
     @GET("latest")
     fun fetchLatestRinggitRatesAsync(@Path("base") base: String = "MYR"): Deferred<RatesGetModel>
