@@ -37,7 +37,7 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
                                     database.taskDao());
 
                     CurrenciesRemoteDataSource remoteDataSource =
-                            CurrenciesRemoteDataSource.getInstance(new AppExecutors());
+                            CurrenciesRemoteDataSource.Companion.getInstance(new AppExecutors());
 
                     CurrenciesRepository repository =
                             CurrenciesRepository.getInstance(localDataSource, remoteDataSource);
