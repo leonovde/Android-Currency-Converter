@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/Android-Currency-Converter.iml" filepath="$PROJECT_DIR$/Android-Currency-Converter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/Android-Currency-Converter-app.iml" filepath="$PROJECT_DIR$/app/Android-Currency-Converter-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/currency-exchanger-Android-Currency-Converter.iml" filepath="$PROJECT_DIR$/currency-exchanger-Android-Currency-Converter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/currency-exchanger-Android-Currency-Converter-app.iml" filepath="$PROJECT_DIR$/app/currency-exchanger-Android-Currency-Converter-app.iml" />
     </modules>
   </component>
 </project>
