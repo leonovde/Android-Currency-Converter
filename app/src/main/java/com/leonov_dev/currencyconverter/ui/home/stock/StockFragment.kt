@@ -1,15 +1,13 @@
 package com.leonov_dev.currencyconverter.ui.home.stock
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 
-import com.leonov_dev.currencyconverter.R
-import com.leonov_dev.currencyconverter.data.CurrencyReplacement
 import com.leonov_dev.currencyconverter.databinding.ActivityStockBinding
 import com.leonov_dev.currencyconverter.ui.home.MainActivity
 import com.leonov_dev.currencyconverter.ui.home.StockConverterViewModel
@@ -30,7 +28,7 @@ class StockFragment : Fragment() {
         stockViewModel = MainActivity.obtainViewModel(activity!!)
         mStockBinding.viewmodel = stockViewModel
         setHasOptionsMenu(true)
-        return mStockBinding.getRoot()
+        return mStockBinding.root
     }
 
     override fun onResume() {

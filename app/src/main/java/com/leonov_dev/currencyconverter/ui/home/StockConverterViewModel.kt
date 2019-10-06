@@ -1,34 +1,36 @@
 package com.leonov_dev.currencyconverter.ui.home
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import android.content.Context
 
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableList
-import android.net.ConnectivityManager
-import android.preference.PreferenceManager
 
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 
 import com.leonov_dev.currencyconverter.R
 import com.leonov_dev.currencyconverter.data.CurrencyReplacement
-import com.leonov_dev.currencyconverter.data.source.CurrenciesDataSource
 import com.leonov_dev.currencyconverter.data.source.CurrenciesRepository
-import com.leonov_dev.currencyconverter.utils.JsonParserUtils
+import com.leonov_dev.currencyconverter.model.RatesGetModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 import java.text.DecimalFormat
 import java.util.ArrayList
 import java.util.HashMap
 
 class StockConverterViewModel(application: Application,
-                              private val mCurrenciesRepository: CurrenciesRepository) : AndroidViewModel(application) {
+                              private val currenciesRepository: CurrenciesRepository) : AndroidViewModel(application) {
 
-    private val mContext: Context // AppContext
+    private var context: Context = application.applicationContext // AppContext
 
     private val LOG_TAG = StockConverterViewModel::class.java.simpleName
 
@@ -43,10 +45,25 @@ class StockConverterViewModel(application: Application,
     private val mListCurrencies = ObservableArrayList<String>()
     private val mCurrencyMap = HashMap<String, CurrencyReplacement>()
 
+    val ratesLiveData = MutableLiveData<RatesGetModel>()
+
     private var isMyrFocused = false
     private var isOtherFocused = false
     private val MYR_FLAG = 10
     private val OTHERS_FLAG = 20
+
+    init {
+        loadRemoteData()
+    }
+
+    fun loadRemoteData() {
+        viewModelScope.launch {
+            ratesLiveData.value = withContext(Dispatchers.IO) {
+                currenciesRepository.fetchRates()
+            }.await()
+            val int = 1
+        }
+    }
 
     val onFocusChangeListener: View.OnFocusChangeListener
         get() = View.OnFocusChangeListener { view, isFocused ->
@@ -58,68 +75,6 @@ class StockConverterViewModel(application: Application,
                 isMyrFocused = false
             }
         }
-
-    init {
-        mContext = application.applicationContext
-    }
-
-    fun loadRemoteData() {
-        val connectivityManager = mContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-        val networkInfo = connectivityManager.activeNetworkInfo
-        if (networkInfo != null && networkInfo.isConnected) {
-//            mCurrenciesRepository.downloadCurrenciesJson(object : CurrenciesDataSource.LoadCurrenciesCallback {
-//                override fun onCurrencyLoaded(jsonResponse: String) {
-//                    saveToDb(jsonResponse)
-//                }
-//
-//                override fun onNothingLoaded() {
-//                    loadLocalData()
-//                }
-//
-//            })
-        } else {
-            loadLocalData()
-        }
-    }
-
-    private fun saveToDb(jsonResponse: String) {
-        var currencies: List<CurrencyReplacement> = ArrayList()
-        try {
-            currencies = JsonParserUtils.parseJSON(jsonResponse)
-        } catch (e: Exception) {
-            Log.e(LOG_TAG, "Error Parsing Json $e")
-        }
-
-//        mCurrenciesRepository.insertCurrencies(currencies)
-        loadLocalData()
-    }
-
-    private fun loadLocalData() {
-//        mCurrenciesRepository.loadCurrencyReplacements(object : CurrenciesDataSource.LoadLocalCurrenciesCallback {
-//            override fun onCurrencyLoaded(currencies: List<CurrencyReplacement>) {
-//                //Store currencies refer from Converter
-//                mapCurrencies(currencies)
-//                val filteredCurrencies = ArrayList<CurrencyReplacement>()
-//                val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext)
-//                for (currency in currencies) {
-//                    if (sharedPreferences.getBoolean(
-//                            currency.currencyName.toLowerCase(),
-//                            true)) {
-//                        filteredCurrencies.add(currency)
-//                    }
-//                }
-//                items.clear()
-//                items.addAll(filteredCurrencies)
-//                empty.set(items.isEmpty())
-//                currentCurrency.set(items[0])
-//            }
-//
-//            override fun onNothingLoaded() {
-//
-//            }
-//        })
-    }
 
     private fun mapCurrencies(currencies: List<CurrencyReplacement>?) {
         if (currencies != null) {

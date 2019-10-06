@@ -31,18 +31,17 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
                     CurrencyDatabase database =
                             CurrencyDatabase.getInstance(application.getApplicationContext());
 
-//                    LocalDataSource localDataSource =
-//                            LocalDataSource(
-//                                    new AppExecutors(),
-//                                    database.taskDao());
-//
-//                    RemoteDataSource remoteDataSource =
-//                            RemoteDataSource.getInstance(new AppExecutors());
-//
-//                    CurrenciesRepository repository =
-//                            CurrenciesRepository.getInstance(localDataSource, remoteDataSource);
+                    LocalDataSource localDataSource =
+                            new LocalDataSource(
+                                    new AppExecutors(),
+                                    database.taskDao());
 
-//                    INSTANCE = new ViewModelFactory(application,repository);
+                    RemoteDataSource remoteDataSource = new RemoteDataSource();
+
+                    CurrenciesRepository repository =
+                            new CurrenciesRepository(localDataSource, remoteDataSource);
+
+                    INSTANCE = new ViewModelFactory(application,repository);
                 }
             }
         }

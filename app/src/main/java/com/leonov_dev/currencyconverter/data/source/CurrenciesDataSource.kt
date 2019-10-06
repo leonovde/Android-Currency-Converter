@@ -1,6 +1,6 @@
 package com.leonov_dev.currencyconverter.data.source
 
-import com.leonov_dev.currencyconverter.model.Rates
+import com.leonov_dev.currencyconverter.model.RatesGetModel
 
 import kotlinx.coroutines.Deferred
 
@@ -10,9 +10,7 @@ interface CurrenciesDataSource {
 
     interface RemoteSource {
 
-        fun fetchRates(): Deferred<Rates>
+        suspend fun fetchRates(): Deferred<RatesGetModel>
 
     }
-
-
 }
