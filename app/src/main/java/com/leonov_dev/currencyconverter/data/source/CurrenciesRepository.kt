@@ -2,9 +2,7 @@ package com.leonov_dev.currencyconverter.data.source
 
 import com.leonov_dev.currencyconverter.data.source.local.LocalDataSource
 import com.leonov_dev.currencyconverter.data.source.remote.RemoteDataSource
-import com.leonov_dev.currencyconverter.model.Rates
 import com.leonov_dev.currencyconverter.model.RatesGetModel
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 
 class CurrenciesRepository(private val localDataSource: LocalDataSource,
@@ -13,7 +11,7 @@ class CurrenciesRepository(private val localDataSource: LocalDataSource,
         CurrenciesDataSource.RemoteSource {
 
 
-    override suspend fun fetchRates(): Deferred<RatesGetModel> {
+    override suspend fun fetchRates(): Deferred<RatesGetModel?> {
         return remoteDataSource.fetchRates()
     }
 }

@@ -10,7 +10,7 @@ interface CurrenciesDataSource {
 
     interface RemoteSource {
 
-        suspend fun fetchRates(): Deferred<RatesGetModel>
+        suspend fun fetchRates(): Deferred<RatesGetModel?>
 
     }
 }
