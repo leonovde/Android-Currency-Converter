@@ -1,4 +1,4 @@
-package com.leonov_dev.currencyconverter.ui.about
+package com.leonov_dev.currencyconverter.ui.home.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
