@@ -14,7 +14,6 @@ class CurrencySettingsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_currency_settings)
         setSupportActionBar(toolbar)
         val actionBar = supportActionBar
-
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

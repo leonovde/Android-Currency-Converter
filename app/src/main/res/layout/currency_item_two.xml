@@ -1,83 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="currency"
-            type="com.leonov_dev.currencyconverter.data.CurrencyReplacement"/>
-    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="16dp"
+    android:paddingTop="4dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="4dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        android:paddingBottom="4dp"
-        android:paddingTop="4dp">
+        android:id="@+id/countryInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/countryInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/stock_flag_new"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center"
-                app:flagLogo="@{currency.currencyFlag}"/>
-
-            <TextView
-                android:id="@+id/stock_currency_name_new"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{currency.currencyName}"
-                android:textColor="@color/blackText"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/stock_flag_new"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"/>
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"/>
-
-        <LinearLayout
+            android:id="@+id/stock_currency_name_new"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/stock_price_new"
-                android:gravity="bottom"
-                android:layout_gravity="end"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:text="@{String.valueOf(currency.stockPrice)}"
-                android:textColor="@color/blackText"
-                android:textSize="18sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:id="@+id/stock_amount_new"
-                android:gravity="top"
-                android:layout_gravity="end"
-                android:textAllCaps="true"
-                android:fontFamily="sans-serif-medium"
-                android:text='@{@string/for_quantity + " "+ String.valueOf(currency.quantity)}'
-                android:textSize="12sp"/>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/blackText" />
 
     </LinearLayout>
-</layout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/stock_price_new"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:textAllCaps="true"
+            android:textColor="@color/blackText"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/stock_amount_new"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="top"
+            android:textAllCaps="true"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center" />
+
+</LinearLayout>

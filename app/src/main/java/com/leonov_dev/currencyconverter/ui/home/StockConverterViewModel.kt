@@ -3,14 +3,10 @@ package com.leonov_dev.currencyconverter.ui.home
 import android.app.Application
 import android.content.Context
 
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableList
-
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -31,18 +27,7 @@ class StockConverterViewModel(application: Application,
                               private val currenciesRepository: CurrenciesRepository) : AndroidViewModel(application) {
 
     private var context: Context = application.applicationContext // AppContext
-
     private val LOG_TAG = StockConverterViewModel::class.java.simpleName
-
-    val items: ObservableList<CurrencyReplacement> = ObservableArrayList()
-
-    val empty = ObservableBoolean(true)
-
-    //Converter activity
-    var myrAmount = ObservableField<String>()
-    var otherAmount = ObservableField<String>()
-    var currentCurrency = ObservableField<CurrencyReplacement>()
-    private val mListCurrencies = ObservableArrayList<String>()
     private val mCurrencyMap = HashMap<String, CurrencyReplacement>()
 
     val ratesLiveData = MutableLiveData<RatesGetModel>()
@@ -61,7 +46,6 @@ class StockConverterViewModel(application: Application,
             ratesLiveData.value = withContext(Dispatchers.IO) {
                 currenciesRepository.fetchRates()
             }.await()
-            val int = 1
         }
     }
 
@@ -83,7 +67,7 @@ class StockConverterViewModel(application: Application,
                 bufCurrencies.add(currencies[i].mCurrencyName)
                 mCurrencyMap[currencies[i].mCurrencyName] = currencies[i]
             }
-            mListCurrencies.addAll(bufCurrencies)
+//            mListCurrencies.addAll(bufCurrencies)
         }
     }
 
@@ -98,21 +82,22 @@ class StockConverterViewModel(application: Application,
     }
 
     //Pass the price from TextView Edited
-    private fun calculateConversion(amount: String?, MyrOrOthers: Int): String {
+    private fun calculateConversion(amount: String?, MyrOrOthers: Int): String? {
         //Currency may not be loaded yet
-        return try {
-            val amountFrom = java.lang.Double.parseDouble(amount!!)
-            val quantity = currentCurrency.get()!!.mQuantity
-            val price = java.lang.Double.parseDouble(formatPrice(currentCurrency.get()!!.mStockPrice))
-            return if (MyrOrOthers == OTHERS_FLAG) {
-                formatPrice(price / quantity * amountFrom)
-            } else {
-                formatPrice(quantity / price * amountFrom)
-            }
-        } catch (e: Exception) {
-            Log.e(LOG_TAG, "Error converting $e")
-            ""
-        }
+        return null
+//        return try {
+//            val amountFrom = java.lang.Double.parseDouble(amount!!)
+////            val quantity = currentCurrency.get()!!.mQuantity
+////            val price = java.lang.Double.parseDouble(formatPrice(currentCurrency.get()!!.mStockPrice))
+//            return if (MyrOrOthers == OTHERS_FLAG) {
+//                formatPrice(price / quantity * amountFrom)
+//            } else {
+//                formatPrice(quantity / price * amountFrom)
+//            }
+//        } catch (e: Exception) {
+//            Log.e(LOG_TAG, "Error converting $e")
+//            ""
+//        }
     }
 
     private fun formatPrice(price: Double): String {
@@ -124,33 +109,34 @@ class StockConverterViewModel(application: Application,
 
     fun onMyrTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (isMyrFocused) {
-            myrAmount.set(s.toString())
-            val amount = myrAmount.get()
-            if (isDouble(amount)) {
-                otherAmount.set(calculateConversion(amount, MYR_FLAG))
-            } else {
-                otherAmount.set("")
-            }
+//            myrAmount.set(s.toString())
+//            val amount = myrAmount.get()
+//            if (isDouble(amount)) {
+//                otherAmount.set(calculateConversion(amount, MYR_FLAG))
+//            } else {
+//                otherAmount.set("")
+//            }
         }
     }
 
     fun onOtherTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         if (isOtherFocused) {
-            otherAmount.set(s.toString())
-            val amount = otherAmount.get()
-            if (isDouble(amount)) {
-                myrAmount.set(calculateConversion(amount, OTHERS_FLAG))
-            } else {
-                myrAmount.set("")
-            }
+//            otherAmount.set(s.toString())
+//            val amount = otherAmount.get()
+//            if (isDouble(amount)) {
+//                myrAmount.set(calculateConversion(amount, OTHERS_FLAG))
+//            } else {
+//                myrAmount.set("")
+//            }
         }
     }
 
     fun onCurrencyItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
         val currencyAbriviation = parent.getItemAtPosition(position).toString()
         if (mCurrencyMap.containsKey(currencyAbriviation)) {
-            currentCurrency.set(mCurrencyMap[currencyAbriviation])
+//            currentCurrency.set(mCurrencyMap[currencyAbriviation])
         }
+        val bundle = bundleOf()
 
     }
 }
