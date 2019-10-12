@@ -1,126 +1,80 @@
 package com.leonov_dev.currencyconverter.ui.home
 
+import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
-import android.content.Intent
-import com.google.android.material.navigation.NavigationView
 import androidx.fragment.app.FragmentActivity
-import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-import com.leonov_dev.currencyconverter.ui.about.AboutFragment
 import com.leonov_dev.currencyconverter.R
 import com.leonov_dev.currencyconverter.ViewModelFactory
-import com.leonov_dev.currencyconverter.preferences.CurrencySettingsActivity
+import com.leonov_dev.currencyconverter.ui.about.AboutFragment
+import com.leonov_dev.currencyconverter.ui.home.converter.ConverterFragment
+import com.leonov_dev.currencyconverter.ui.home.stock.StockFragment
 import kotlinx.android.synthetic.main.activity_main_wrapper.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private val LOG_TAG = this.javaClass.simpleName
+    companion object {
+
+        private val TAG_TO_FRAGMENT_FACTORY_FUNCTION = mapOf(
+                ConverterFragment::class.java.simpleName to { ConverterFragment() },
+                StockFragment::class.java.simpleName to { StockFragment() },
+                AboutFragment::class.java.simpleName to { AboutFragment() }
+        )
+
+        fun obtainViewModel(activity: FragmentActivity): StockConverterViewModel {
+            // Use a Factory to inject dependencies into the ViewModel
+            val factory = ViewModelFactory.getInstance(activity.application)
+            return ViewModelProviders.of(activity, factory).get(StockConverterViewModel::class.java)
+        }
+    }
+
     private var viewModel: StockConverterViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_wrapper)
 
-        setSupportActionBar(toolbar)
-
-        val toggle = ActionBarDrawerToggle(
-            this, drawerLayout,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        navigationView.setNavigationItemSelectedListener(this)
-
-        val stockAndConverterFragment = StockAndConverterFragment()
-
-        val ft = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.container, stockAndConverterFragment)
-        ft.addToBackStack(null)
-        ft.commit()
-
+        bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected)
         viewModel = obtainViewModel(this)
-
     }
 
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+    // Handles bottom navigation bar for android
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            R.id.navigation_rates -> presentFragment(StockFragment::class.java.simpleName)
+            R.id.navigation_converter -> presentFragment(ConverterFragment::class.java.simpleName)
+            R.id.navigation_settings -> presentFragment(AboutFragment::class.java.simpleName)
         }
-
-        val fragmentManager = supportFragmentManager
-        if (fragmentManager.backStackEntryCount == 1) {
-
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_top, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val elementId = item.itemId
-        if (elementId == R.id.action_settings) {
-            val intent = Intent(this, CurrencySettingsActivity::class.java)
-            startActivity(intent)
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
-        var fragmentClass: Class<*>? = null
-        var fragment: Fragment? = null
-
-        val id = item.itemId
-        if (id == R.id.home_page_item) {
-            fragmentClass = StockAndConverterFragment::class.java
-        } else if (id == R.id.about_item) {
-            fragmentClass = AboutFragment::class.java
-        }
-
-        try {
-            fragment = fragmentClass!!.newInstance() as Fragment
-        } catch (e: Exception) {
-            Log.e(LOG_TAG, "Error Creating fragment $e")
-        }
+    // Handles whether to add a new fragment to the fragment container or to show an existing one
+    private fun presentFragment(tag: String) {
+        require(TAG_TO_FRAGMENT_FACTORY_FUNCTION.containsKey(tag)) { "Unexpected fragment tag" }
 
         val transaction = supportFragmentManager.beginTransaction()
-        try {
-            transaction.replace(R.id.container, fragment!!)
-            transaction.addToBackStack(null)
-            transaction.commit()
-        } catch (e: Exception) {
-            Log.e(LOG_TAG, "Transaction error$e")
+
+        // Hide fragments that are not the one being shown.
+        TAG_TO_FRAGMENT_FACTORY_FUNCTION.keys
+                .filter { it != tag }
+                .forEach { it ->
+                    supportFragmentManager.findFragmentByTag(it)?.let { transaction.hide(it) }
+                }
+
+        // Show or create the desired fragment.
+        supportFragmentManager.findFragmentByTag(tag).let {
+            if (it == null) {
+                val fragment = TAG_TO_FRAGMENT_FACTORY_FUNCTION[tag]!!()
+                transaction.add(R.id.fragmentContainer, fragment, tag)
+            } else {
+                transaction.show(it)
+            }
         }
-
-        title = item.title
-        drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-
-    }
-
-    companion object {
-
-        fun obtainViewModel(activity: FragmentActivity): StockConverterViewModel {
-            // Use a Factory to inject dependencies into the ViewModel
-            val factory = ViewModelFactory.getInstance(activity.application)
-
-            return ViewModelProviders.of(activity, factory).get(StockConverterViewModel::class.java)
-        }
+        transaction.commit()
     }
 }

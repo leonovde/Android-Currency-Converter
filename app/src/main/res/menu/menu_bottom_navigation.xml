@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/navigation_rates"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/rates" />
+    <item
+        android:id="@+id/navigation_converter"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/converter" />
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/settings" />
+
+</menu>
