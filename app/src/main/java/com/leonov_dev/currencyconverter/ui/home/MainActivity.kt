@@ -1,6 +1,5 @@
 package com.leonov_dev.currencyconverter.ui.home
 
-import android.graphics.Color
 import androidx.lifecycle.ViewModelProviders
 import androidx.fragment.app.FragmentActivity
 import androidx.appcompat.app.AppCompatActivity
@@ -10,8 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 import com.leonov_dev.currencyconverter.R
 import com.leonov_dev.currencyconverter.ViewModelFactory
-import com.leonov_dev.currencyconverter.ui.about.AboutFragment
 import com.leonov_dev.currencyconverter.ui.home.converter.ConverterFragment
+import com.leonov_dev.currencyconverter.ui.home.settings.SettingsFragment
 import com.leonov_dev.currencyconverter.ui.home.stock.StockFragment
 import kotlinx.android.synthetic.main.activity_main_wrapper.*
 
@@ -23,7 +22,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         private val TAG_TO_FRAGMENT_FACTORY_FUNCTION = mapOf(
                 ConverterFragment::class.java.simpleName to { ConverterFragment() },
                 StockFragment::class.java.simpleName to { StockFragment() },
-                AboutFragment::class.java.simpleName to { AboutFragment() }
+                SettingsFragment::class.java.simpleName to { SettingsFragment() }
         )
 
         fun obtainViewModel(activity: FragmentActivity): StockConverterViewModel {
@@ -48,7 +47,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when (menuItem.itemId) {
             R.id.navigation_rates -> presentFragment(StockFragment::class.java.simpleName)
             R.id.navigation_converter -> presentFragment(ConverterFragment::class.java.simpleName)
-            R.id.navigation_settings -> presentFragment(AboutFragment::class.java.simpleName)
+            R.id.navigation_settings -> presentFragment(SettingsFragment::class.java.simpleName)
         }
         return true
     }
